@@ -1,13 +1,15 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const test = require('./app/test');
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
-app.use('/', test);
 app.use(cors());
 
+app.get('*', (req, res) => res.status(200).send({
+  message: 'Hello World!'
+}));
+
 app.listen(port, () => {
-  console.log(`Server has been started at http://localhost:${port}`);
+  console.log(`Server is running at port: ${port}`);
 });
