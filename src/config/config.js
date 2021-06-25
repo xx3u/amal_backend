@@ -6,7 +6,7 @@ module.exports = {
   "development": {
     "username": DB_USERNAME,
     "password": DB_PASSWORD,
-    "database": "database_development",
+    "database": "amal_dev",
     "port": 5432,
     "host": DB_HOST,
     "dialect": "postgres"
@@ -14,7 +14,7 @@ module.exports = {
   "test": {
     "username": DB_USERNAME,
     "password": DB_PASSWORD,
-    "database": "database_test",
+    "database": "amal_test",
     "port": 5432,
     "host": DB_HOST,
     "dialect": "postgres"
@@ -22,7 +22,7 @@ module.exports = {
   "production": {
     "username": DB_USERNAME,
     "password": DB_PASSWORD,
-    "database": "database_production",
+    "database": "amal_production",
     "port": 5432,
     "host": DB_HOST,
     "dialect": "postgres"
