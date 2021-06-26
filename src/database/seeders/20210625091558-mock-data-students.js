@@ -6,8 +6,8 @@ module.exports = {
       'Students', 
       [
         {
-          firstname: 'John',
-          surname: 'Doe',
+          firstName: 'John',
+          lastName: 'Doe',
           grade: 10,
           language: 'ENG',
           school: '71',
@@ -17,8 +17,8 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          firstname: 'Jane',
-          surname: 'White',
+          firstName: 'Jane',
+          lastName: 'Doe',
           grade: 5,
           language: 'KZ',
           school: '121',
