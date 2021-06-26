@@ -18,5 +18,12 @@ module.exports = {
       console.log(error);
     }
   },
-
+  async getById(req, res) {
+    try {
+      const student = await Student.findByPk(req.params.id);
+      res.send(student);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
