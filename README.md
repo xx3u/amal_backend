@@ -40,3 +40,18 @@ You can seed your database with this data by running this sequelize-cli command:
 ```
 sequelize db:seed:all
 ```
+
+# Changes in tables and run migrations:
+```
+sequelize migration:create --name update-name-fields-for-student
+```
+
+# Undoing Migrations
+You can use db:migrate:undo, this command will revert most recent migration.
+```
+sequelize db:migrate:undo
+```
+You can revert back to initial state by undoing all migrations with db:migrate:undo:all command. You can also revert back to a specific migration by passing its name in --to option.
+```
+sequelize db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
+```
