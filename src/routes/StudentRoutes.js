@@ -3,5 +3,6 @@ const router = express.Router();
 const StudentController = require('../controllers/StudentController');
 
 router.get('/', StudentController.getAll);
+router.post('/', StudentController.addNew);
 
 module.exports = router;
