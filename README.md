@@ -7,13 +7,17 @@
   git clone git@github.com:xx3u/amal_backend.git
   ```
   Если данное приложение имеется, то можно запуллить последние изменения, используя команды `git pull`.
+
 2. Установить зависимости проекта `npm install`;
+
 3. Дополнительно установить postgresql, например, используя ссылку: [Install PostgreSQL](https://www.postgresqltutorial.com/install-postgresql/);
+
 4. Создать базу данных в postgres. Можно использовать shell psql:
   ```
   postgres=# CREATE DATABASE amal_dev;
   ```
   Либо можно использовать pgAdmin tool: `Databases` и выбрать `Create > Database…`.
+
 5. Внести свои данные в файл `.env.example` и убрать `.example`. Например:
   ```
   PORT=5432
@@ -69,9 +73,9 @@ amal_dev=# select * from public."Students";
 Далее следующий раздел по описанию API endpoints.
 
 ---------------------------------------------------------------------------------------------------------------------------------------
-# Endpoints 
+# Описание API Endpoints 
 ## Students
-* GET /students - список всех студентов;
+* GET /students - получение списка всех студентов;
 ```
 [
   {
@@ -109,6 +113,7 @@ amal_dev=# select * from public."Students";
 ]
 ```
 * POST /students - создание нового студента;
+
 Через postman можно отправить post запрос на `http://localhost:8080/students` при этом обязательными полями являются:
 ```
 {
@@ -139,7 +144,7 @@ amal_dev=# select * from public."Students";
     "email": null
 }
 ```
-* GET /students/:id - получение данных конкретного студента по primary key (pk), например, get запрос на `http://localhost:8080/students/2`:
+* GET /students/:id - получение данных конкретного студента по primary key (pk). Например, get запрос на `http://localhost:8080/students/2`:
 ```
 {
   "id": 2,
