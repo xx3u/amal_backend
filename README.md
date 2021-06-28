@@ -1,6 +1,4 @@
 # amal_backend
-
-
 ## Sequelize
 
 Sequelize is an Object-Relation Mapping (ORM) library that allows you to treat your relational database schemas as objects in your JavaScript applications.
@@ -55,3 +53,10 @@ You can revert back to initial state by undoing all migrations with db:migrate:u
 ```
 sequelize db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
 ```
+
+## Endpoints STUDENTS
+
+* GET /students - list of all students;
+* POST /students - create new student;
+* GET /students/:id - get certain student by primary key(pk);
+* PUT /students/:id - update information for certain student;
