@@ -6,24 +6,28 @@ module.exports = {
       const students = await Student.findAll();
       return res.status(200).send(students);
     } catch (error) {
-      console.log(error);
+      return res.status(500).send(error);
     }
   },
   async addNew(req, res) {
     const newStudent = req.body;
     try {
       const createdStudent = await Student.create(newStudent);
-      res.send(createdStudent);
+      return res.send(createdStudent);
     } catch (error) {
-      console.log(error);
+      return res.status(500).send(error);
     }
   },
   async getById(req, res) {
     try {
       const student = await Student.findByPk(req.params.id);
-      res.send(student);
+      if (student) {
+        return res.status(200).send(student);
+      } else {
+        return res.status(400).send({error: 'Student with this id was not found'});
+      }
     } catch (error) {
-      console.log(error);
+      return res.status(400).send(error);
     }
   },
   async updateOne(req, res) {
@@ -45,12 +49,12 @@ module.exports = {
           createdAt: req.body.createdAt,
           updatedAt: req.body.updatedAt
         });
-        res.send(updatedStudent);
+        return res.send(updatedStudent);
       } else {
-        res.send('Student was not found');
+        return res.status(400).send({error: 'Student with this id was not found'});
       }
     } catch (error) {
-      console.log(error);
+      return res.status(400).send(error);
     }
   }
 }
