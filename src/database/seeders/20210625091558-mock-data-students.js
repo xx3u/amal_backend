@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     return await queryInterface.bulkInsert(
-      'Students', 
+      'Students',
       [
         {
           firstName: 'John',
@@ -14,7 +14,7 @@ module.exports = {
           parentsContacts: 'grandpa, +77777777',
           stream: 'SAT',
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
           firstName: 'Jane',
@@ -25,12 +25,14 @@ module.exports = {
           parentsContacts: 'mother, +77017777',
           stream: 'NISH',
           createdAt: new Date(),
-          updatedAt: new Date()
-        }
-      ], {});
-    },
+          updatedAt: new Date(),
+        },
+      ],
+      {}
+    );
+  },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     return await queryInterface.bulkDelete('Students', null, {});
-  }
+  },
 };
