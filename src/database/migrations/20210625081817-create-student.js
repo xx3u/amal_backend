@@ -6,58 +6,58 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       firstName: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       lastName: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       middleName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       grade: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       language: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       school: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       parentsContacts: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       stream: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       telephone: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('Students');
-  }
+  },
 };
