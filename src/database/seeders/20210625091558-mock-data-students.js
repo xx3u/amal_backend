@@ -1,36 +1,40 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return await queryInterface.bulkInsert(
-      'Students', 
+      "Students",
       [
         {
-          firstName: 'John',
-          lastName: 'Doe',
+          firstName: "John",
+          lastName: "Doe",
           grade: 10,
-          language: 'ENG',
-          school: '71',
-          parentsContacts: 'grandpa, +77777777',
-          stream: 'SAT',
+          language: "ENG",
+          school: "71",
+          parentsContacts: "grandpa, +77777777",
+          stream: "SAT",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
+          status: "Активные",
         },
         {
-          firstName: 'Jane',
-          lastName: 'Doe',
+          firstName: "Jane",
+          lastName: "Doe",
           grade: 5,
-          language: 'KZ',
-          school: '121',
-          parentsContacts: 'mother, +77017777',
-          stream: 'NISH',
+          language: "KZ",
+          school: "121",
+          parentsContacts: "mother, +77017777",
+          stream: "NISH",
           createdAt: new Date(),
-          updatedAt: new Date()
-        }
-      ], {});
-    },
+          updatedAt: new Date(),
+          status: "В ожидании",
+        },
+      ],
+      {}
+    );
+  },
 
   down: async (queryInterface, Sequelize) => {
-    return await queryInterface.bulkDelete('Students', null, {});
-  }
+    return await queryInterface.bulkDelete("Students", null, {});
+  },
 };
