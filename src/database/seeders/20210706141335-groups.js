@@ -9,6 +9,12 @@ module.exports = {
       {
         groupName: 'R7',
       },
+      {
+        groupName: 'K3',
+      },
+      {
+        groupName: 'R4',
+      },
     ]);
   },
   down: async (queryInterface) => {
