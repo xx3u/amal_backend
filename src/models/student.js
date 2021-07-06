@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 "use strict";
 const { Model } = require("sequelize");
+=======
+'use strict';
+const { Model } = require('sequelize');
+>>>>>>> 48c00a82bac7311d03bbe16a93ce669164efb5e3
 module.exports = (sequelize, DataTypes) => {
   class Student extends Model {
     /**
@@ -7,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate() {
       // define association here
     }
   }
@@ -24,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       address: DataTypes.STRING,
       telephone: DataTypes.STRING,
       email: DataTypes.STRING,
+<<<<<<< HEAD
       status: DataTypes.ENUM(
         "Активные",
         "В резерве",
@@ -34,6 +40,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Student",
+=======
+    },
+    {
+      sequelize,
+      modelName: 'Student',
+>>>>>>> 48c00a82bac7311d03bbe16a93ce669164efb5e3
     }
   );
   return Student;

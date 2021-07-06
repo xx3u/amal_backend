@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     return await queryInterface.bulkInsert(
       "Students",
       [
@@ -30,7 +30,6 @@ module.exports = {
           status: "В ожидании",
         },
       ],
-      {}
     );
   },
 
