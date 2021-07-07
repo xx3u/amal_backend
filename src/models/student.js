@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-"use strict";
-const { Model } = require("sequelize");
-=======
 'use strict';
 const { Model } = require('sequelize');
->>>>>>> 48c00a82bac7311d03bbe16a93ce669164efb5e3
 module.exports = (sequelize, DataTypes) => {
   class Student extends Model {
     /**
@@ -29,23 +24,16 @@ module.exports = (sequelize, DataTypes) => {
       address: DataTypes.STRING,
       telephone: DataTypes.STRING,
       email: DataTypes.STRING,
-<<<<<<< HEAD
       status: DataTypes.ENUM(
-        "Активные",
-        "В резерве",
-        "Отчисленные",
-        "В ожидании"
+        'Активные',
+        'В резерве',
+        'Отчисленные',
+        'В ожидании'
       ),
     },
     {
       sequelize,
-      modelName: "Student",
-=======
-    },
-    {
-      sequelize,
       modelName: 'Student',
->>>>>>> 48c00a82bac7311d03bbe16a93ce669164efb5e3
     }
   );
   return Student;
