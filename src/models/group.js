@@ -13,8 +13,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Group.init(
     {
-      groupName: DataTypes.STRING,
-      allowNull: false,
+      groupName: {
+        type: DataTypes.STRING(10),
+        allowNull: false,
+      },
     },
     {
       sequelize,
