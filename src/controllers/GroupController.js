@@ -45,4 +45,19 @@ module.exports = {
       return res.status(400).send(error);
     }
   },
+  async deleteById(req, res) {
+    try {
+      const group = await Group.findByPk(req.params.id);
+      if (group) {
+        await group.destroy({
+          groupName: req.body.groupName || group.groupName,
+        });
+        return res.send('the group was deleted');
+      } else {
+        return res.status(400).send({ error: 'Group with this id was not found' });
+      }
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
 };
