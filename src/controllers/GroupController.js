@@ -33,7 +33,7 @@ module.exports = {
   async updateOne(req, res) {
     try {
       const group = await Group.findByPk(req.params.id);
-      if (student) {
+      if (group) {
         const updatedGroup = await group.update({
           groupName: req.body.groupName || group.groupName,
         });
