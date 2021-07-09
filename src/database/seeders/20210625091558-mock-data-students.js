@@ -13,6 +13,7 @@ module.exports = {
         stream: 'SAT',
         createdAt: new Date(),
         updatedAt: new Date(),
+        status: 'Активный',
       },
       {
         firstName: 'Jane',
@@ -24,11 +25,12 @@ module.exports = {
         stream: 'NISH',
         createdAt: new Date(),
         updatedAt: new Date(),
+        status: 'В ожидании',
       },
     ]);
   },
 
-  down: async (queryInterface) => {
-    return await queryInterface.bulkDelete('Students', null, {});
+  down: async (queryInterface, Sequelize) => {
+    return await queryInterface.bulkDelete('Students', null);
   },
 };
