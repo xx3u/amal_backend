@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.Group.hasMany(models.Student);
+      this.hasMany(models.Student);
     }
   }
   Group.init(
@@ -23,5 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Group',
     }
   );
+
   return Group;
 };
