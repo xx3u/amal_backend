@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.hasMany(models.Student, { as: 'students' });
     }
   }
   Stream.init(
@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Stream',
     }
   );
-  Stream.associate = function (models) {
-    Stream.hasMany(models.Student, { as: 'students' });
-  };
+  // Stream.associate = function (models) {
+  //   Stream.hasMany(models.Student, { as: 'students' });
+  // };
   return Stream;
 };
