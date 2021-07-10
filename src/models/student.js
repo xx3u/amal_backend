@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate() {
-      // define association here
+      models.Student.belongsTo(models.Group);
     }
   }
   Student.init(
@@ -24,12 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       address: DataTypes.STRING,
       telephone: DataTypes.STRING,
       email: DataTypes.STRING,
-      status: DataTypes.ENUM(
-        'Активный',
-        'В резерве',
-        'Отчисленный',
-        'В ожидании'
-      ),
+      status: DataTypes.ENUM('Активный', 'В резерве', 'Отчисленный', 'В ожидании'),
     },
     {
       sequelize,
