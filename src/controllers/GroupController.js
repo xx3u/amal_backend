@@ -1,4 +1,5 @@
 const Group = require('../models').Group;
+const Student = require('../models').Student;
 
 module.exports = {
   async getAll(req, res) {
@@ -62,9 +63,12 @@ module.exports = {
   },
   async addStudents(req, res) {
     try {
+      const StudentsId = req.body;
+      console.log(StudentsId);
       const group = await Group.findByPk(req.params.id);
       if (group) {
-        return res.status(200).send({ groupId: group.id });
+        await Student.findAll();
+        return res.status(200).send(Student);
       } else {
         return res.status(404).send({ error: 'Group with this id was not found' });
       }
