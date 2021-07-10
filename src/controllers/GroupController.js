@@ -24,7 +24,7 @@ module.exports = {
       if (group) {
         return res.status(200).send(group);
       } else {
-        return res.status(400).send({ error: 'Group with this id was not found' });
+        return res.status(404).send({ error: 'Group with this id was not found' });
       }
     } catch (error) {
       return res.status(400).send(error);
@@ -39,7 +39,7 @@ module.exports = {
         });
         return res.send(updatedGroup);
       } else {
-        return res.status(400).send({ error: 'Group with this id was not found' });
+        return res.status(404).send({ error: 'Group with this id was not found' });
       }
     } catch (error) {
       return res.status(400).send(error);
@@ -54,7 +54,19 @@ module.exports = {
         });
         return res.send('the group was deleted');
       } else {
-        return res.status(400).send({ error: 'Group with this id was not found' });
+        return res.status(404).send({ error: 'Group with this id was not found' });
+      }
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
+  async addStudents(req, res) {
+    try {
+      const group = await Group.findByPk(req.params.id);
+      if (group) {
+        return res.status(200).send({ groupId: group.id });
+      } else {
+        return res.status(404).send({ error: 'Group with this id was not found' });
       }
     } catch (error) {
       return res.status(400).send(error);
