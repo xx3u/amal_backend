@@ -24,7 +24,7 @@ module.exports = {
       if (student) {
         return res.status(200).send(student);
       } else {
-        return res.status(400).send({ error: 'Student with this id was not found' });
+        return res.status(404).send({ error: 'Student with this id was not found' });
       }
     } catch (error) {
       return res.status(400).send(error);
@@ -46,12 +46,13 @@ module.exports = {
           address: req.body.address || student.address,
           telephone: req.body.telephone || student.telephone,
           email: req.body.email || student.email,
+          status: req.body.status,
           createdAt: req.body.createdAt,
-          updatedAt: req.body.updatedAt,
+          updatedAt: new Date(),
         });
         return res.send(updatedStudent);
       } else {
-        return res.status(400).send({ error: 'Student with this id was not found' });
+        return res.status(404).send({ error: 'Student with this id was not found' });
       }
     } catch (error) {
       return res.status(400).send(error);
