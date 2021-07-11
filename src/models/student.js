@@ -24,12 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       address: DataTypes.STRING,
       telephone: DataTypes.STRING,
       email: DataTypes.STRING,
-      status: DataTypes.ENUM(
-        'Активный',
-        'В резерве',
-        'Отчисленный',
-        'В ожидании'
-      ),
+      status: DataTypes.ENUM('Активный', 'В резерве', 'Отчисленный', 'В ожидании'),
     },
     {
       sequelize,
