@@ -17,11 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Stream',
+      modelName: 'stream',
     }
   );
-  // Stream.associate = function (models) {
-  //   Stream.hasMany(models.Student, { as: 'students' });
-  // };
   return Stream;
 };
