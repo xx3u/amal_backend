@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.Student, { as: 'students' });
+      this.hasMany(models.Student, { foreignKey: 'streamId' });
     }
   }
   Stream.init(
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'stream',
+      modelName: 'Stream',
     }
   );
   return Stream;

@@ -8,18 +8,22 @@ module.exports = {
         queryInterface.addColumn('Students', 'streamId', {
           allowNull: false,
           type: Sequelize.INTEGER,
-        }),
-        queryInterface.addConstraint('Students', {
-          type: 'FOREIGN KEY',
-          fields: ['streamId'],
-          name: 'FK_student_stream', // useful if using queryInterface.removeConstraint
           references: {
-            table: 'Streams',
-            field: 'id',
+            model: 'Streams',
+            key: 'id',
           },
-          onDelete: 'cascade',
-          onUpdate: 'cascade',
         }),
+        // queryInterface.addConstraint('Students', {
+        //   type: 'FOREIGN KEY',
+        //   fields: ['streamId'],
+        //   name: 'FK_student_stream', // useful if using queryInterface.removeConstraint
+        //   references: {
+        //     table: 'Streams',
+        //     field: 'id',
+        //   },
+        //   onDelete: 'cascade',
+        //   onUpdate: 'cascade',
+        // }),
       ]);
     });
   },
@@ -27,7 +31,7 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     return queryInterface.sequelize.transaction((t) => {
       return Promise.all([
-        queryInterface.removeConstraint('Students', 'FK_student_stream'),
+        // queryInterface.removeConstraint('Students', 'FK_student_stream'),
         queryInterface.removeColumn('Students', 'streamId'),
         queryInterface.addColumn('Students', 'stream', {
           allowNull: false,
