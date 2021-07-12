@@ -3,7 +3,7 @@ const Student = require('../models').Student;
 module.exports = {
   async getAll(req, res) {
     try {
-      const students = await Student.findAll();
+      const students = await Student.findAll({ attributes: ['id', 'firstName', 'lastName', 'grade'] });
       return res.status(200).send(students);
     } catch (error) {
       return res.status(500).send(error);
