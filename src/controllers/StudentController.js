@@ -9,6 +9,18 @@ module.exports = {
       return res.status(500).send(error);
     }
   },
+  async getbyGroupId(req, res, next) {
+    const { groupId } = req.query;
+    if (groupId) {
+      try {
+        const students = await Student.findAll({ where: { groupId } });
+        return res.status(200).send(students);
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+    }
+    next();
+  },
   async addNew(req, res) {
     const newStudent = req.body;
     try {
