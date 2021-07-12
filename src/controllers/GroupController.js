@@ -63,10 +63,10 @@ module.exports = {
   },
   async addStudents(req, res) {
     try {
-      const StudentsId = req.body;
+      const { studentIds } = req.body;
       const group = await Group.findByPk(req.params.id);
       if (group) {
-        await Student.update({ groupId: group.id }, { where: { id: StudentsId } });
+        await Student.update({ groupId: group.id }, { where: { id: studentIds } });
         return res.sendStatus(204);
       } else {
         return res.status(404).send({ error: 'Group with this id was not found' });
