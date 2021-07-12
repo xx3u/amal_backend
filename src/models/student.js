@@ -2,13 +2,8 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Student extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate() {
-      // define association here
+    static associate(models) {
+      this.belongsTo(models.Stream, { foreignKey: 'streamId' });
     }
   }
   Student.init(
@@ -20,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       language: DataTypes.STRING,
       school: DataTypes.STRING,
       parentsContacts: DataTypes.STRING,
-      stream: DataTypes.STRING,
+      streamId: DataTypes.INTEGER,
       address: DataTypes.STRING,
       telephone: DataTypes.STRING,
       email: DataTypes.STRING,
