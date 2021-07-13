@@ -4,7 +4,12 @@ const Student = require('../models').Student;
 module.exports = {
   async getAll(req, res) {
     try {
-      const groups = await Group.findAll();
+      const groups = await Group.findAll({
+        include: {
+          model: Student,
+          attributes: ['id', 'firstName', 'lastName', 'grade']
+        }
+      });
       return res.status(200).send(groups);
     } catch (error) {
       return res.status(500).send(error);
