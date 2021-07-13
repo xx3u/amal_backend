@@ -228,3 +228,11 @@ sequelize db:migrate:undo
 ```
 sequelize db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
 ```
+
+
+Перед тем как проверять другую ветку на работоспособность, вызвать след команды:
+
+npx sequelize-cli db:seed:undo:all
+npx sequelize-cli db:migrate:undo:all
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
