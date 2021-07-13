@@ -18,6 +18,9 @@ module.exports = {
       } catch (error) {
         return res.status(500).send(error);
       }
+    } else if (groupId === '') {
+      const studentWoGroup = await Student.findAll({ where: { groupId: null } });
+      return res.status(200).send(studentWoGroup);
     }
     next();
   },
