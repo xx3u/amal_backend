@@ -7,5 +7,5 @@ router.post('/', GroupController.addNew);
 router.get('/:id', GroupController.getById);
 router.put('/:id', GroupController.updateOne);
 router.delete('/:id', GroupController.deleteById);
-
+router.put('/:id/add-students', GroupController.addStudents);
 module.exports = router;
