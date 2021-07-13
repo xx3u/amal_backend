@@ -9,6 +9,21 @@ module.exports = {
       return res.status(500).send(error);
     }
   },
+  async getbyGroupId(req, res, next) {
+    const { groupId } = req.query;
+    if (groupId) {
+      try {
+        const students = await Student.findAll({ where: { groupId } });
+        return res.status(200).send(students);
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+    } else if (groupId === '') {
+      const studentWoGroup = await Student.findAll({ where: { groupId: null } });
+      return res.status(200).send(studentWoGroup);
+    }
+    next();
+  },
   async addNew(req, res) {
     const newStudent = req.body;
     try {
