@@ -1,9 +1,10 @@
 const Student = require('../models').Student;
+const Stream = require('../models').Stream;
 
 module.exports = {
   async getAll(req, res) {
     try {
-      const students = await Student.findAll();
+      const students = await Student.findAll({ include: [{ model: Stream, attributes: ['name'] }] });
       return res.status(200).send(students);
     } catch (error) {
       return res.status(500).send(error);
