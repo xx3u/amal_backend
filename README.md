@@ -27,19 +27,17 @@
   DB_NAME='amal_dev'
   ```
 
-6. Установить глобально ОРМ Sequelize:
+В скрипте прописаны команды для работы с sequelize через npm run.
+
+6. Запустить миграции при помощи команды:
 ```
-$ npm install sequelize-cli -g
+$ npm run migrate
 ```
-7. Запустить миграции при помощи команды:
+7. Если существуют фикстурные данные в папке `src -> database -> seeders`, то можно запустить данные при помощи команды: 
 ```
-$ sequelize db:migrate
+$ npm run seed
 ```
-8. Если существуют фикстурные данные в папке `src -> database -> seeders`, то можно запустить данные при помощи команды: 
-```
-$ sequelize db:seed:all
-```
-9. Подключиться к своей базе через shell psql и проверить существование таблицы с помощью следующих команд:
+8. Подключиться к своей базе через shell psql и проверить существование таблицы с помощью следующих команд:
 ```
 postgres=# \c amal_dev
 You are now connected to database "amal_dev" as user "postgres". 
@@ -64,7 +62,7 @@ amal_dev=# select * from public."Students";
 ```
 Основные команды sequelize указаны ниже. 
 
-10. Для запуска сервера в dev используйте команду `npm run dev`. На `http://localhost:8080/` вы получите следуюший ответ:
+9. Для запуска сервера в dev используйте команду `npm run dev`. На `http://localhost:8080/` вы получите следуюший ответ:
 ```
 {
   "message": "Hello World!"
