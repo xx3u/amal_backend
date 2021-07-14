@@ -1,10 +1,16 @@
 const Student = require('../models').Student;
 const Stream = require('../models').Stream;
+const Group = require('../models').Group;
 
 module.exports = {
   async getAll(req, res) {
     try {
-      const students = await Student.findAll({ include: [{ model: Stream, attributes: ['name'] }] });
+      const students = await Student.findAll({ 
+        include: [
+          { model: Stream, attributes: ['name'] },
+          { model: Group, attributes: ['groupName'] }
+        ] 
+      });
       return res.status(200).send(students);
     } catch (error) {
       return res.status(500).send(error);
@@ -29,14 +35,27 @@ module.exports = {
     const newStudent = req.body;
     try {
       const createdStudent = await Student.create(newStudent);
-      return res.send(createdStudent);
+      const postedStudent = await Student.findOne({
+        where: { id: createdStudent.id },
+        include: [
+          { model: Stream, attributes: ['name'] },
+          { model: Group, attributes: ['groupName'] }
+        ]
+      });
+      return res.send(postedStudent);
     } catch (error) {
       return res.status(500).send(error);
     }
   },
   async getById(req, res) {
     try {
-      const student = await Student.findByPk(req.params.id);
+      const student = await Student.findOne({
+        where: { id: req.params.id },
+        include: [
+          { model: Stream, attributes: ['name'] },
+          { model: Group, attributes: ['groupName'] }
+        ]
+      });
       if (student) {
         return res.status(200).send(student);
       } else {
@@ -51,7 +70,14 @@ module.exports = {
       const student = await Student.findByPk(req.params.id);
       if (student) {
         const updatedStudent = await student.update(req.body);
-        return res.send(updatedStudent);
+        const postedStudent = await Student.findOne({
+          where: { id: updatedStudent.id },
+          include: [
+            { model: Stream, attributes: ['name'] },
+            { model: Group, attributes: ['groupName'] }
+          ]
+        });
+        return res.send(postedStudent);
       } else {
         return res.status(404).send({ error: 'Student with this id was not found' });
       }
