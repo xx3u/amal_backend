@@ -5,11 +5,11 @@ const Group = require('../models').Group;
 module.exports = {
   async getAll(req, res) {
     try {
-      const students = await Student.findAll({ 
+      const students = await Student.findAll({
         include: [
           { model: Stream, attributes: ['name'] },
-          { model: Group, attributes: ['groupName'] }
-        ] 
+          { model: Group, attributes: ['groupName'] },
+        ],
       });
       return res.status(200).send(students);
     } catch (error) {
@@ -39,8 +39,8 @@ module.exports = {
         where: { id: createdStudent.id },
         include: [
           { model: Stream, attributes: ['name'] },
-          { model: Group, attributes: ['groupName'] }
-        ]
+          { model: Group, attributes: ['groupName'] },
+        ],
       });
       return res.send(postedStudent);
     } catch (error) {
@@ -53,8 +53,8 @@ module.exports = {
         where: { id: req.params.id },
         include: [
           { model: Stream, attributes: ['name'] },
-          { model: Group, attributes: ['groupName'] }
-        ]
+          { model: Group, attributes: ['groupName'] },
+        ],
       });
       if (student) {
         return res.status(200).send(student);
@@ -74,8 +74,8 @@ module.exports = {
           where: { id: updatedStudent.id },
           include: [
             { model: Stream, attributes: ['name'] },
-            { model: Group, attributes: ['groupName'] }
-          ]
+            { model: Group, attributes: ['groupName'] },
+          ],
         });
         return res.send(postedStudent);
       } else {
