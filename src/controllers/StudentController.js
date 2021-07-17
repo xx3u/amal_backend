@@ -1,18 +1,37 @@
 const Student = require('../models').Student;
 const Stream = require('../models').Stream;
 const Group = require('../models').Group;
+const { Op } = require('sequelize');
 
 module.exports = {
   async getAll(req, res) {
     try {
-      const students = await Student.findAll({ 
+      const firstname = req.query.firstname;
+      const lastname = req.query.lastname;
+      let students;
+      let searchParam = null;
+
+      if (firstname && !lastname) {
+        searchParam = { firstName: { [Op.iLike]: `%${firstname}%` } };
+      } else if (!firstname && lastname) {
+        searchParam = { lastName: { [Op.iLike]: `%${lastname}%` } };
+      } else if (firstname && lastname) {
+        searchParam = {
+          [Op.and]: [{ firstName: { [Op.iLike]: `%${firstname}%` } }, { lastName: { [Op.iLike]: `%${lastname}%` } }],
+        };
+      }
+
+      students = await Student.findAll({
+        where: searchParam,
         include: [
           { model: Stream, attributes: ['name'] },
-          { model: Group, attributes: ['groupName'] }
-        ] 
+          { model: Group, attributes: ['groupName'] },
+        ],
       });
+
       return res.status(200).send(students);
     } catch (error) {
+      console.log('error', error);
       return res.status(500).send(error);
     }
   },
@@ -39,8 +58,8 @@ module.exports = {
         where: { id: createdStudent.id },
         include: [
           { model: Stream, attributes: ['name'] },
-          { model: Group, attributes: ['groupName'] }
-        ]
+          { model: Group, attributes: ['groupName'] },
+        ],
       });
       return res.send(postedStudent);
     } catch (error) {
@@ -53,8 +72,8 @@ module.exports = {
         where: { id: req.params.id },
         include: [
           { model: Stream, attributes: ['name'] },
-          { model: Group, attributes: ['groupName'] }
-        ]
+          { model: Group, attributes: ['groupName'] },
+        ],
       });
       if (student) {
         return res.status(200).send(student);
@@ -74,8 +93,8 @@ module.exports = {
           where: { id: updatedStudent.id },
           include: [
             { model: Stream, attributes: ['name'] },
-            { model: Group, attributes: ['groupName'] }
-          ]
+            { model: Group, attributes: ['groupName'] },
+          ],
         });
         return res.send(postedStudent);
       } else {
