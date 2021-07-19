@@ -69,7 +69,11 @@ module.exports = {
     try {
       const student = await Student.findByPk(req.params.id);
       if (student) {
-        const updatedStudent = await student.update(req.body);
+        let changedStudent = req.body;
+        if (changedStudent.status === 'Отчисленный') {
+          changedStudent = { ...req.body, groupId: null };
+        }
+        const updatedStudent = await student.update(changedStudent);
         const postedStudent = await Student.findOne({
           where: { id: updatedStudent.id },
           include: [
