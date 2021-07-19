@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Payment.init(
     {
+      studentId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       status: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
