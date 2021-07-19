@@ -13,8 +13,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   Payment.init(
     {
-      status: DataTypes.BOOLEAN,
-      date: DataTypes.DATEONLY,
+      status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      date: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+      },
     },
     {
       sequelize,
