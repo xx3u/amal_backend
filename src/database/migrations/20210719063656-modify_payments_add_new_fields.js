@@ -5,6 +5,10 @@ module.exports = {
     await queryInterface.addColumn('Payments', 'amount', {
       allowNull: false,
       type: Sequelize.INTEGER,
+      references: {
+        model: 'Students',
+        key: 'id',
+      },
     });
   },
   down: async (queryInterface) => {
