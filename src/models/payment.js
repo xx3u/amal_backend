@@ -21,9 +21,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       status: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.VIRTUAL,
         get() {
-          return true;
+          const currentDate = new Date();
+          const paymentDate = this.getDataValue('date');
+          return (
+            paymentDate.getMonth() === currentDate.getMonth() && paymentDate.getFullYear() === currentDate.getFullYear()
+          );
         },
       },
     },

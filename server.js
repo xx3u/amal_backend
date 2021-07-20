@@ -4,7 +4,6 @@ const cors = require('cors');
 const studentRoutes = require('./src/routes/StudentRoutes');
 const groupRoutes = require('./src/routes/GroupRoutes');
 const streamRoutes = require('./src/routes/StreamRoutes');
-const testRoutes = require('./src/routes/TestRoutes');
 
 const port = 8080;
 
@@ -14,7 +13,6 @@ app.use(express.json());
 app.use('/students', studentRoutes);
 app.use('/groups', groupRoutes);
 app.use('/streams', streamRoutes);
-app.use('/test', testRoutes);
 
 app.get('*', (req, res) =>
   res.status(200).send({
