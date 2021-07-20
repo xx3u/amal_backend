@@ -24,9 +24,9 @@ module.exports = {
       return res.status(500).send(error);
     }
   },
-  async getById(res, req) {
+  async getById(req, res) {
     try {
-      const payment = await Payment.findByPK(req.params.id);
+      const payment = await Payment.findByPk(req.params.id);
       if (payment) {
         return res.status(200).send(payment);
       } else {
