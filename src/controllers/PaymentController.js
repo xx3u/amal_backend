@@ -23,4 +23,16 @@ module.exports = {
       return res.status(500).send(error);
     }
   },
+  async getById(res, req) {
+    try {
+      const payment = await Payment.findByPK(req.params.id);
+      if (payment) {
+        return res.status(200).send(payment);
+      } else {
+        return res.status(404).send({ error: 'Payment with this id was not found' });
+      }
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
 };
