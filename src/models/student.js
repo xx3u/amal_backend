@@ -16,7 +16,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   Student.init(
     {
-      firstName: DataTypes.STRING,
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: 'Нужно ввести имя',
+          },
+        },
+      },
       lastName: DataTypes.STRING,
       middleName: DataTypes.STRING,
       grade: DataTypes.INTEGER,
