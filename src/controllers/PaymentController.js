@@ -35,4 +35,17 @@ module.exports = {
       return res.status(400).send(error);
     }
   },
+  async updateOne(req, res) {
+    try {
+      const payment = await Payment.findByPk(req.params.id);
+      if (payment) {
+        const updatedPayment = await payment.update(req.body);
+        return res.send(updatedPayment);
+      } else {
+        return res.status(404).send({ error: 'Payment with this id was not found' });
+      }
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
 };
