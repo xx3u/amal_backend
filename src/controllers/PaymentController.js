@@ -1,4 +1,5 @@
 const Payment = require('../models').Payment;
+const Student = require('../models').Student;
 
 module.exports = {
   async getAll(req, res) {
