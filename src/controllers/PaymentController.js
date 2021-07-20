@@ -14,4 +14,13 @@ module.exports = {
       return res.status(500).send(error);
     }
   },
+  async addNew(req, res) {
+    const newPayment = req.body;
+    try {
+      const createdPayment = await Payment.create(newPayment);
+      return res.send(createdPayment);
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+  },
 };
