@@ -4,21 +4,21 @@ module.exports = {
   up: async (queryInterface) => {
     return await queryInterface.bulkInsert('Payments', [
       {
-        studentId: 3,
+        studentId: 1,
         date: '2021-7-14',
         amount: 50000,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        studentId: 4,
+        studentId: 2,
         date: '2021-7-12',
         amount: 50000,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        studentId: 5,
+        studentId: 3,
         date: '2021-6-12',
         amount: 50000,
         createdAt: new Date(),

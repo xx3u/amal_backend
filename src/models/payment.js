@@ -20,16 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      status: {
-        type: DataTypes.VIRTUAL,
-        get() {
-          const currentDate = new Date();
-          const paymentDate = this.getDataValue('date');
-          return (
-            paymentDate.getMonth() === currentDate.getMonth() && paymentDate.getFullYear() === currentDate.getFullYear()
-          );
-        },
-      },
     },
     {
       sequelize,

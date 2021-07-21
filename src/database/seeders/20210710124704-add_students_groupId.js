@@ -9,6 +9,7 @@ module.exports = {
           'Students',
           [
             {
+              id: 1,
               firstName: 'John',
               lastName: 'Doe',
               grade: 10,
@@ -22,6 +23,7 @@ module.exports = {
               groupId: 1,
             },
             {
+              id: 2,
               firstName: 'Jane',
               lastName: 'Doe',
               grade: 5,
@@ -35,6 +37,7 @@ module.exports = {
               groupId: 2,
             },
             {
+              id: 3,
               firstName: 'Jane_no_group',
               lastName: 'Doe2',
               grade: 5,
@@ -48,6 +51,7 @@ module.exports = {
               groupId: null,
             },
             {
+              id: 4,
               firstName: 'John',
               lastName: 'Doe',
               grade: 10,
