@@ -7,8 +7,8 @@ module.exports = {
       const groups = await Group.findAll({
         include: {
           model: Student,
-          attributes: ['id', 'firstName', 'lastName', 'grade']
-        }
+          attributes: ['id', 'firstName', 'lastName', 'grade'],
+        },
       });
       return res.status(200).send(groups);
     } catch (error) {
