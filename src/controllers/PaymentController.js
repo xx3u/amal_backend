@@ -49,17 +49,4 @@ module.exports = {
       return res.status(400).send(error);
     }
   },
-  async deleteById(req, res) {
-    try {
-      const payment = await Payment.findByPk(req.params.id);
-      if (payment) {
-        await payment.destroy();
-        return res.send('the payment was deleted');
-      } else {
-        return res.status(404).send({ error: 'Payment with this id was not found' });
-      }
-    } catch (error) {
-      return res.status(400).send(error);
-    }
-  },
 };

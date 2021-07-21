@@ -1,12 +1,12 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
 const studentRoutes = require('./src/routes/StudentRoutes');
 const groupRoutes = require('./src/routes/GroupRoutes');
 const streamRoutes = require('./src/routes/StreamRoutes');
 const paymentRoutes = require('./src/routes/PaymentRoutes');
+const { PORT } = require('./src/config/config');
 
-const port = 8080;
+const app = express();
 
 app.use(cors());
 app.use(express.json());
@@ -22,6 +22,6 @@ app.get('*', (req, res) =>
   })
 );
 
-app.listen(port, () => {
-  console.log(`Server is running at port: ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running at port: ${PORT}`);
 });

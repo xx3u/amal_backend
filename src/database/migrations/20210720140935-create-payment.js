@@ -8,12 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      status: {
-        type: Sequelize.BOOLEAN,
+      studentId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       date: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      amount: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       createdAt: {
