@@ -1,14 +1,14 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     queryInterface.addConstraint('Groups', {
       fields: ['groupName'],
       type: 'unique',
     });
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     queryInterface.removeConstraint('Groups', {
       fields: ['groupName'],
       type: 'unique',
