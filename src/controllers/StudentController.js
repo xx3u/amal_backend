@@ -21,9 +21,7 @@ module.exports = {
         searchConditions.push({ [param]: { [Op.iLike]: `%${reqQuery[param]}%` } });
       });
 
-      let students;
-
-      students = await Student.findAll({
+      const students = await Student.findAll({
         where: { [Op.and]: searchConditions },
         include: [
           { model: Stream, attributes: ['name'] },
@@ -33,7 +31,6 @@ module.exports = {
 
       return res.status(200).send(students);
     } catch (error) {
-      console.log('error', error);
       return res.status(500).send(error);
     }
   },
