@@ -26,7 +26,14 @@ module.exports = {
   },
   async getById(req, res) {
     try {
-      const payment = await Payment.findByPk(req.params.id);
+      const payment = await Payment.findOne({
+        where: { id: req.params.id },
+        include: [
+          { 
+            model: Student, 
+            attributes: ['id', 'firstName', 'lastName']  }
+        ]
+      });
       if (payment) {
         return res.status(200).send(payment);
       } else {
