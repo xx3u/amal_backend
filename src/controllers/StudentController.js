@@ -6,23 +6,25 @@ const { Op } = require('sequelize');
 module.exports = {
   async getAll(req, res) {
     try {
-      const firstname = req.query.firstname;
-      const lastname = req.query.lastname;
-      let students;
-      let searchParam = null;
+      const reqQuery = req.query;
 
-      if (firstname && !lastname) {
-        searchParam = { firstName: { [Op.iLike]: `%${firstname}%` } };
-      } else if (!firstname && lastname) {
-        searchParam = { lastName: { [Op.iLike]: `%${lastname}%` } };
-      } else if (firstname && lastname) {
-        searchParam = {
-          [Op.and]: [{ firstName: { [Op.iLike]: `%${firstname}%` } }, { lastName: { [Op.iLike]: `%${lastname}%` } }],
-        };
-      }
+      const params = Object.keys(reqQuery).reduce((acc, key) => {
+        if (reqQuery[key]) {
+          acc.push(key);
+        }
+        return acc;
+      }, []);
+
+      const searchConditions = [];
+
+      params.forEach((param) => {
+        searchConditions.push({ [param]: { [Op.iLike]: `%${reqQuery[param]}%` } });
+      });
+
+      let students;
 
       students = await Student.findAll({
-        where: searchParam,
+        where: { [Op.and]: searchConditions },
         include: [
           { model: Stream, attributes: ['name'] },
           { model: Group, attributes: ['groupName'] },
