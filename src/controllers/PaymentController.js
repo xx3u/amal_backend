@@ -29,10 +29,11 @@ module.exports = {
       const payment = await Payment.findOne({
         where: { id: req.params.id },
         include: [
-          { 
-            model: Student, 
-            attributes: ['id', 'firstName', 'lastName']  }
-        ]
+          {
+            model: Student,
+            attributes: ['id', 'firstName', 'lastName'],
+          },
+        ],
       });
       if (payment) {
         return res.status(200).send(payment);
