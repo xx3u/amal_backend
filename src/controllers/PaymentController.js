@@ -57,4 +57,19 @@ module.exports = {
       return res.status(400).send(error);
     }
   },
+  async getByStudentId(req, res, next) {
+    const { studentId } = req.query;
+    if (studentId) {
+      try {
+        const payments = await Payment.findAll({ 
+          where: { studentId },
+          order: [['date', 'DESC']],
+        });
+        return res.status(200).send(payments);
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+    }
+    next();
+  },
 };

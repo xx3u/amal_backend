@@ -35,7 +35,7 @@ module.exports = {
       return res.status(500).send(error);
     }
   },
-  async getbyGroupId(req, res, next) {
+  async getByGroupId(req, res, next) {
     const { groupId } = req.query;
     if (groupId) {
       try {
