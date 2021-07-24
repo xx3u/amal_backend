@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const StudentController = require('../controllers/StudentController');
 
-router.get('/', StudentController.getByGroupId, StudentController.getAll);
+router.get('/', StudentController.getbyGroupId, StudentController.getAll);
 
 router.post('/', StudentController.addNew);
 router.get('/:id', StudentController.getById);
