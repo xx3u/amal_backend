@@ -3,7 +3,6 @@ const Stream = require('../models').Stream;
 const Group = require('../models').Group;
 const Payment = require('../models').Payment;
 const { Op, literal } = require('sequelize');
-// const Sequelize = require('sequelize');
 
 module.exports = {
   async getAll(req, res) {
