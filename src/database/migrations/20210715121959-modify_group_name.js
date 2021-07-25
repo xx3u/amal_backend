@@ -5,7 +5,7 @@ module.exports = {
     queryInterface.addConstraint('Groups', {
       fields: ['groupName'],
       type: 'unique',
-      name: 'constraint_uniqe_groupname',
+      name: 'constraint_unique_groupname',
     });
   },
 
