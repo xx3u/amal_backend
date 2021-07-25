@@ -24,17 +24,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      statusPayment: {
+      paymentStatus: {
         type: DataTypes.VIRTUAL,
         get() {
           const currentDate = new Date();
           const paymentDate = this.getDataValue('date');
-          const copyOfDate = new Date(paymentDate);
+          const dateCopy = new Date(paymentDate);
 
           function dateWithMonthsDelay() {
-            copyOfDate.setMonth(copyOfDate.getMonth() + 1);
-
-            return copyOfDate;
+            dateCopy.setMonth(dateCopy.getMonth() + 1);
+            return dateCopy;
           }
           const dateLimit = dateWithMonthsDelay();
 
