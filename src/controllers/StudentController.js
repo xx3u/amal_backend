@@ -1,7 +1,8 @@
 const Student = require('../models').Student;
 const Stream = require('../models').Stream;
 const Group = require('../models').Group;
-const { Op } = require('sequelize');
+const Payment = require('../models').Payment;
+const { Op, literal } = require('sequelize');
 
 module.exports = {
   async getAll(req, res) {
@@ -26,6 +27,12 @@ module.exports = {
         include: [
           { model: Stream, attributes: ['name'] },
           { model: Group, attributes: ['groupName'] },
+          {
+            model: Payment,
+            attributes: ['id', [literal('"date"'), 'maxPaymentDate'], 'amount'],
+            order: [['date', 'DESC']],
+            limit: 1,
+          },
         ],
       });
 
