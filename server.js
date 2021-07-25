@@ -4,6 +4,7 @@ const studentRoutes = require('./src/routes/StudentRoutes');
 const groupRoutes = require('./src/routes/GroupRoutes');
 const streamRoutes = require('./src/routes/StreamRoutes');
 const paymentRoutes = require('./src/routes/PaymentRoutes');
+const teacherRoutes = require('./src/routes/TeacherRoutes');
 const { PORT } = require('./src/config/config');
 
 const app = express();
@@ -15,6 +16,7 @@ app.use('/students', studentRoutes);
 app.use('/groups', groupRoutes);
 app.use('/streams', streamRoutes);
 app.use('/payments', paymentRoutes);
+app.use('/teachers', teacherRoutes);
 
 app.get('*', (req, res) =>
   res.status(200).send({
