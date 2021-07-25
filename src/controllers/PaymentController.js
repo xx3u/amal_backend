@@ -26,7 +26,15 @@ module.exports = {
   },
   async getById(req, res) {
     try {
-      const payment = await Payment.findByPk(req.params.id);
+      const payment = await Payment.findOne({
+        where: { id: req.params.id },
+        include: [
+          {
+            model: Student,
+            attributes: ['id', 'firstName', 'lastName'],
+          },
+        ],
+      });
       if (payment) {
         return res.status(200).send(payment);
       } else {
@@ -48,5 +56,20 @@ module.exports = {
     } catch (error) {
       return res.status(400).send(error);
     }
+  },
+  async getByStudentId(req, res, next) {
+    const { studentId } = req.query;
+    if (studentId) {
+      try {
+        const payments = await Payment.findAll({ 
+          where: { studentId },
+          order: [['date', 'DESC']],
+        });
+        return res.status(200).send(payments);
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+    }
+    next();
   },
 };
