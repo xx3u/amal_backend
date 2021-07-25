@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.Student, { foreignKey: 'groupId', onDelete: 'CASCADE', onUpdate: 'SET NULL' });
+      this.hasMany(models.Student, { foreignKey: 'groupId', onDelete: 'SET NULL', onUpdate: ' CASCADE' });
     }
   }
   Group.init(
