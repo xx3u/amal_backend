@@ -10,6 +10,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    queryInterface.removeConstraint('Groups', 'constraint_uniqe_groupname');
+    queryInterface.removeConstraint('Groups', 'constraint_unique_groupname');
   },
 };
