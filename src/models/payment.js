@@ -29,17 +29,14 @@ module.exports = (sequelize, DataTypes) => {
         get() {
           const currentDate = new Date();
           const paymentDate = this.getDataValue('date');
-          const dateCopy = new Date(paymentDate);
+          let dateLimit = new Date(paymentDate);
 
-          function dateWithMonthsDelay() {
-            dateCopy.setMonth(dateCopy.getMonth() + 1);
-            if (paymentDate.getDate() !== dateCopy.getDate()) {
-              const dateCopy2 = new Date(paymentDate);
-              return new Date(dateCopy2.getFullYear(), dateCopy2.getMonth() + 2, 1);
-            }
-            return dateCopy;
+          dateLimit.setMonth(dateLimit.getMonth() + 1);
+
+          if (paymentDate.getDate() !== dateLimit.getDate()) {
+            const dateCopy = new Date(paymentDate);
+            dateLimit = new Date(dateCopy.getFullYear(), dateCopy.getMonth() + 2, 1);
           }
-          const dateLimit = dateWithMonthsDelay();
 
           return currentDate < dateLimit;
         },

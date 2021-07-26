@@ -5,7 +5,7 @@ module.exports = {
     return await queryInterface.bulkInsert('Payments', [
       {
         studentId: 1,
-        date: '2021-7-14T00:00:00.000Z',
+        date: '2021-01-31T00:00:00.000Z',
         amount: 50000,
         createdAt: new Date(),
         updatedAt: new Date(),
