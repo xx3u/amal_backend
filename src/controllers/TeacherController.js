@@ -21,24 +21,26 @@ module.exports = {
   },
   async updateById(req, res) {
     try {
-      const updatedTeacher = await Teacher.update(req.body, {
-        where: {
-          id: req.params.id,
-        },
-      });
-      return res.status(200).send('Updated successfully!');
+      const teacher = await Teacher.findByPk(req.params.id);
+      if (teacher) {
+        const updatedTeacher = await Teacher.update(req.body);
+        return res.send(updatedTeacher);
+      } else {
+        return res.status(404).send({ error: 'Teacher with this id was not found' });
+      }
     } catch (error) {
       res.status(400).send(error);
     }
   },
   async deleteById(req, res) {
     try {
-      await Teacher.destroy({
-        where: {
-          id: req.params.id,
-        },
-      });
-      return res.status(200).send('The teacher was deleted!');
+      const teacher = await Teacher.findByPk(req.params.id);
+      if (teacher) {
+        await teacher.destroy();
+        return res.send('The teacher was deleted');
+      } else {
+        return res.status(404).send({ error: 'Teacher with this id was not found' });
+      }
     } catch (error) {
       res.status(400).send(error);
     }
