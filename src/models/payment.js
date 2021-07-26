@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      paymentStatus: {
+      status: {
         type: DataTypes.VIRTUAL,
         get() {
           const currentDate = new Date();

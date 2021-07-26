@@ -29,7 +29,7 @@ module.exports = {
           { model: Group, attributes: ['groupName'] },
           {
             model: Payment,
-            attributes: ['id', [literal('"date"'), 'maxPaymentDate'], 'amount', 'paymentStatus'],
+            attributes: ['id', [literal('"date"'), 'maxPaymentDate'], 'amount', 'status'],
             order: [['date', 'DESC']],
             limit: 1,
           },
