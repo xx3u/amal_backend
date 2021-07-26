@@ -4,7 +4,7 @@ const StudentController = require('../controllers/StudentController');
 const validationMiddleware = require('../middleware/validationMiddleware');
 const { StudentSchema } = require('../schemas/schemas');
 
-router.get('/', StudentController.getbyGroupId, StudentController.getAll);
+router.get('/', StudentController.getByGroupId, StudentController.getAll);
 router.post('/', validationMiddleware(StudentSchema), StudentController.addNew);
 router.get('/:id', StudentController.getById);
 router.put('/:id', StudentController.updateOne);
