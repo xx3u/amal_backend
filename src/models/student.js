@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Group, { foreignKey: 'groupId' });
       this.belongsTo(models.Stream, { foreignKey: 'streamId' });
       this.hasMany(models.Payment, { foreignKey: 'studentId' });
+      this.hasMany(models.Payment, { as: 'LastPayment', foreignKey: 'studentId' });
     }
   }
   Student.init(

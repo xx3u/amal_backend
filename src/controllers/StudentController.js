@@ -1,6 +1,7 @@
 const Student = require('../models').Student;
 const Stream = require('../models').Stream;
 const Group = require('../models').Group;
+const Payment = require('../models').Payment;
 const { Op } = require('sequelize');
 
 module.exports = {
@@ -26,6 +27,13 @@ module.exports = {
         include: [
           { model: Stream, attributes: ['name'] },
           { model: Group, attributes: ['groupName'] },
+          {
+            model: Payment,
+            as: 'LastPayment',
+            attributes: ['id', 'date', 'amount'],
+            order: [['date', 'DESC']],
+            limit: 1,
+          },
         ],
       });
 
