@@ -8,18 +8,11 @@ module.exports = {
     try {
       const reqQuery = req.query;
 
-      const params = Object.keys(reqQuery).reduce((acc, key) => {
-        if (reqQuery[key]) {
-          acc.push(key);
-        }
-        return acc;
-      }, []);
-
-      const searchConditions = [];
-
-      params.forEach((param) => {
-        searchConditions.push({ [param]: { [Op.iLike]: `%${reqQuery[param]}%` } });
-      });
+   const searchConditions = Object.entries(req.query)
+        .filter(([key, value]) => value)
+        .map(([key, value]) => {
+          return { [key]: { [Op.iLike]: `%${value}%` } };
+        });
 
       const students = await Student.findAll({
         where: { [Op.and]: searchConditions },
