@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
 
           function dateWithMonthsDelay() {
             dateCopy.setMonth(dateCopy.getMonth() + 1);
+            if (paymentDate.getDate() !== dateCopy.getDate()) {
+              const dateCopy2 = new Date(paymentDate);
+              return new Date(dateCopy2.getFullYear(), dateCopy2.getMonth() + 2, 1);
+            }
             return dateCopy;
           }
           const dateLimit = dateWithMonthsDelay();
