@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-const dateWithMonthsDelay = require('../helpers/helpers');
+const getPaymentStatus = require('../helpers/helpers');
 
 module.exports = (sequelize, DataTypes) => {
   class Payment extends Model {
@@ -29,8 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.VIRTUAL,
         get() {
-          const dateLimit = dateWithMonthsDelay(this.getDataValue('date'));
-          return new Date() < dateLimit;
+          return getPaymentStatus(this.getDataValue('date'));
         },
       },
     },

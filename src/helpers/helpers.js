@@ -1,4 +1,5 @@
-const dateWithMonthsDelay = (paymentDate) => {
+const getPaymentStatus = (paymentDate) => {
+  const currentDate = new Date();
   let dateLimit = new Date(paymentDate);
   dateLimit.setMonth(dateLimit.getMonth() + 1);
 
@@ -7,7 +8,7 @@ const dateWithMonthsDelay = (paymentDate) => {
     dateLimit = new Date(dateCopy.getFullYear(), dateCopy.getMonth() + 2, 1);
   }
 
-  return dateLimit;
+  return currentDate < dateLimit;
 };
 
-module.exports = dateWithMonthsDelay;
+module.exports = getPaymentStatus;
