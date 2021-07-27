@@ -48,10 +48,8 @@ module.exports = {
   async deleteById(req, res) {
     try {
       const subject = await Subject.findByPk(req.params.id);
-      if (group) {
-        await subject.destroy({
-          subjectName: req.body.subjectName || subject.subjectName,
-        });
+      if (subject) {
+        await subject.destroy();
         return res.send('the subject was deleted');
       } else {
         return res.status(404).send({ error: 'Subject with this id was not found' });
