@@ -9,6 +9,7 @@ const StudentSchema = Joi.object({
   school: Joi.string().allow(null, ''),
   parentsContacts: Joi.any().required(),
   streamId: Joi.number().required(),
+  groupId: Joi.number().allow(null, ''),
   adress: Joi.string().allow(null, ''),
   telephone: Joi.string().allow(null, ''),
   email: Joi.string().email().allow(null, ''),
