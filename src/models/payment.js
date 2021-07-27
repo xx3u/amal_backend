@@ -1,5 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
+const getPaymentStatus = require('../helpers/helpers');
+
 module.exports = (sequelize, DataTypes) => {
   class Payment extends Model {
     static associate(models) {
@@ -23,6 +25,12 @@ module.exports = (sequelize, DataTypes) => {
       comment: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      status: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          return getPaymentStatus(this.getDataValue('date'));
+        },
       },
     },
     {
