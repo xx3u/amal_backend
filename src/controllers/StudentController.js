@@ -23,7 +23,7 @@ module.exports = {
           {
             model: Payment,
             as: 'LastPayment',
-            attributes: ['id', 'date', 'amount', 'status'],
+            attributes: ['id', 'date', 'amount', 'status', 'comment'],
             order: [['date', 'DESC']],
             limit: 1,
           },
