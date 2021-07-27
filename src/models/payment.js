@@ -1,5 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
+const dateWithMonthsDelay = require('../helpers/helpers');
+
 module.exports = (sequelize, DataTypes) => {
   class Payment extends Model {
     static associate(models) {
@@ -27,18 +29,8 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.VIRTUAL,
         get() {
-          const currentDate = new Date();
-          const paymentDate = this.getDataValue('date');
-          let dateLimit = new Date(paymentDate);
-
-          dateLimit.setMonth(dateLimit.getMonth() + 1);
-
-          if (paymentDate.getDate() !== dateLimit.getDate()) {
-            const dateCopy = new Date(paymentDate);
-            dateLimit = new Date(dateCopy.getFullYear(), dateCopy.getMonth() + 2, 1);
-          }
-
-          return currentDate < dateLimit;
+          const dateLimit = dateWithMonthsDelay(this.getDataValue('date'));
+          return new Date() < dateLimit;
         },
       },
     },
