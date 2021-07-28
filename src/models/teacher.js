@@ -8,9 +8,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   Teacher.init(
     {
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      language: DataTypes.STRING,
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      language: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       telephone: DataTypes.STRING,
       email: DataTypes.STRING,
       userId: {

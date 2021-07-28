@@ -1,6 +1,4 @@
 const Teacher = require('../models').Teacher;
-const { addNew } = require('./PaymentController');
-const { deleteById } = require('./StreamController');
 
 module.exports = {
   async getAll(req, res) {
@@ -19,16 +17,29 @@ module.exports = {
       res.status(400).send(error);
     }
   },
+  async getById(req, res) {
+    try {
+      const teacher = await Teacher.findByPk(req.params.id);
+      if (teacher) {
+        return res.send(teacher);
+      } else {
+        return res.status(404).send({ error: 'Teacher with this id was not found' });
+      }
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  },
   async updateById(req, res) {
     try {
       const teacher = await Teacher.findByPk(req.params.id);
       if (teacher) {
-        const updatedTeacher = await Teacher.update(req.body);
+        const updatedTeacher = await teacher.update(req.body);
         return res.send(updatedTeacher);
       } else {
         return res.status(404).send({ error: 'Teacher with this id was not found' });
       }
     } catch (error) {
+      console.log('error: ', error);
       res.status(400).send(error);
     }
   },

@@ -10,12 +10,15 @@ module.exports = {
       },
       firstName: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       lastName: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       language: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       telephone: {
         type: Sequelize.STRING,
@@ -42,7 +45,7 @@ module.exports = {
       },
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('Teachers');
   },
 };
