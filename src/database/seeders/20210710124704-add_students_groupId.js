@@ -70,7 +70,6 @@ module.exports = {
       ]);
     });
   },
-  // eslint-disable-next-line no-unused-vars
   down: async (queryInterface, Sequelize) => {
     return await queryInterface.bulkDelete('Students', null);
   },

@@ -6,14 +6,12 @@ module.exports = {
       {
         id: 1,
         subjectName: 'Math',
-        teacherId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: 2,
         subjectName: 'Physics',
-        teacherId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
