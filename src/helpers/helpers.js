@@ -11,8 +11,7 @@ const getPaymentStatus = (paymentDate) => {
   let dateLimit = addOneMonth(dateCopy);
 
   if (paymentDate.getDate() !== dateLimit.getDate()) {
-    const dateCopyNew = new Date(paymentDate);
-    dateLimit = getNextMonthLastDay(dateCopyNew);
+    dateLimit = getNextMonthLastDay(paymentDate);
   }
 
   return currentDate < dateLimit;
