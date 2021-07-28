@@ -1,11 +1,17 @@
+const addOneMonth = (date) => {
+  date.setMonth(date.getMonth() + 1);
+  return date;
+};
+
+const getNextMonthLastDay = (date) => new Date(date.getFullYear(), date.getMonth() + 2, 0);
+
 const getPaymentStatus = (paymentDate) => {
   const currentDate = new Date();
-  let dateLimit = new Date(paymentDate);
-  dateLimit.setMonth(dateLimit.getMonth() + 1);
+  const dateCopy = new Date(paymentDate);
+  let dateLimit = addOneMonth(dateCopy);
 
   if (paymentDate.getDate() !== dateLimit.getDate()) {
-    const dateCopy = new Date(paymentDate);
-    dateLimit = new Date(dateCopy.getFullYear(), dateCopy.getMonth() + 2, 1);
+    dateLimit = getNextMonthLastDay(paymentDate);
   }
 
   return currentDate < dateLimit;
