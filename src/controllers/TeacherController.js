@@ -1,9 +1,10 @@
 const Teacher = require('../models').Teacher;
+const Subject = require('../models').Subject;
 
 module.exports = {
   async getAll(req, res) {
     try {
-      const teachers = await Teacher.findAll();
+      const teachers = await Teacher.findAll({ include: { model: Subject, attributes: ['subjectName'] } });
       return res.status(200).send(teachers);
     } catch (error) {
       res.status(500).send(error);
