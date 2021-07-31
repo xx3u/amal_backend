@@ -8,6 +8,7 @@ module.exports = {
         'Teachers',
         [
           {
+            id: 1,
             firstName: 'Duisen',
             lastName: 'Atabasov',
             language: 'KZ',
@@ -19,6 +20,7 @@ module.exports = {
             updatedAt: new Date(),
           },
           {
+            id: 2,
             firstName: 'Roza',
             lastName: 'Ismailova',
             language: 'RU',
