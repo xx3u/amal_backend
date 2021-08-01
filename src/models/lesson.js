@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'Lesson',
       timestamps: false,
+      initialAutoIncrement: 1000,
     }
   );
   return Lesson;
