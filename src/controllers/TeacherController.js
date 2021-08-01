@@ -58,7 +58,7 @@ module.exports = {
     }
   },
   async getBySubjectId(req, res) {
-    const subjectId = req.query;
+    const { subjectId } = req.query;
     if (subjectId) {
       try {
         const teachers = await Teacher.findAll({
