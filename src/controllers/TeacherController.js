@@ -57,7 +57,7 @@ module.exports = {
       res.status(400).send(error);
     }
   },
-  async getBySubjectId(req, res) {
+  async getBySubjectId(req, res, next) {
     const { subjectId } = req.query;
     if (subjectId) {
       try {
@@ -69,5 +69,6 @@ module.exports = {
         return res.status(500).send(error);
       }
     }
+    next();
   },
 };
