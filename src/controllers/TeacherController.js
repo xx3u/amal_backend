@@ -56,4 +56,17 @@ module.exports = {
       res.status(400).send(error);
     }
   },
+  async getBySubjectId(req, res) {
+    const subjectId = req.query;
+    if (subjectId) {
+      try {
+        const teachers = await Teacher.findAll({
+          where: { subjectId },
+        });
+        return res.status(200).send(teachers);
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+    }
+  }
 };
