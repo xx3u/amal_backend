@@ -36,5 +36,5 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
     }
   );
-  return Stream;
+  return Lesson;
 };
