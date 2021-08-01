@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const TeacherController = require('../controllers/TeacherController');
 
-router.get('/', TeacherController.getAll);
+router.get('/', TeacherController.getBySubjectId, TeacherController.getAll);
 router.get('/:id', TeacherController.getById);
 router.post('/', TeacherController.addNew);
 router.put('/:id', TeacherController.updateById);
