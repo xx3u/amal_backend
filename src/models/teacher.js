@@ -22,7 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      telephone: DataTypes.STRING,
+      telephone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       email: DataTypes.STRING,
       userId: {
         type: DataTypes.INTEGER,
