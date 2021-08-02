@@ -15,5 +15,12 @@ const StudentSchema = Joi.object({
   email: Joi.string().email().allow(null, ''),
   status: Joi.string().valid('Активный', 'В резерве', 'Отчисленный', 'В ожидании').required(),
 });
+const LessonSchema = Joi.object({
+  startTime: Joi.date().required(),
+  endTime: Joi.date().required(),
+  groupId: Joi.number().required(),
+  teacherId: Joi.number().required(),
+  subjectId: Joi.number().required(),
+});
 
-module.exports = { StudentSchema };
+module.exports = { StudentSchema, LessonSchema };
