@@ -6,7 +6,7 @@ const streamRoutes = require('./src/routes/StreamRoutes');
 const paymentRoutes = require('./src/routes/PaymentRoutes');
 const subjectRoutes = require('./src/routes/SubjectRoutes');
 const teacherRoutes = require('./src/routes/TeacherRoutes');
-const LessonsRoutes = require('./src/routes/LessonsRoutes');
+const lessonsRoutes = require('./src/routes/LessonsRoutes');
 const { PORT } = require('./src/config/config');
 
 const app = express();
@@ -20,7 +20,7 @@ app.use('/streams', streamRoutes);
 app.use('/payments', paymentRoutes);
 app.use('/subjects', subjectRoutes);
 app.use('/teachers', teacherRoutes);
-app.use('/lessons', LessonsRoutes);
+app.use('/lessons', lessonsRoutes);
 
 app.get('*', (req, res) =>
   res.status(200).send({

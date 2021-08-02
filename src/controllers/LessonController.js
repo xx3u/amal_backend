@@ -21,7 +21,6 @@ module.exports = {
         return res.status(404).send({ error: 'Lesson with this id was not found' });
       }
     } catch (error) {
-      console.log(error);
       return res.status(400).send(error);
     }
   },
