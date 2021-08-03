@@ -22,6 +22,7 @@ module.exports = {
       },
       telephone: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
