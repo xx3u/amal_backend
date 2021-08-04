@@ -81,9 +81,8 @@ module.exports = {
       if (!teacher) return res.status(404).send({ error: 'Teacher with this id was not found' });
 
       const { startTime, endTime } = req.query;
-      if (!startTime || !endTime) {
-        return res.status(400).send({ error: 'Invalid request parameters' });
-      }
+      if (!startTime || !endTime) return res.status(400).send({ error: 'Invalid request parameters' });
+
       const lessons = await teacher.getLessons({
         where: {
           [Op.and]: [
