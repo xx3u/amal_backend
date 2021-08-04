@@ -1,6 +1,42 @@
 const Lesson = require('../models').Lesson;
 const { checkLessonsTime } = require('../helpers/helpers');
+const { Op } = require('sequelize');
 module.exports = {
+  async getLessonsByGroup(req, res) {
+    const { groupId, startTime, endTime } = req.query;
+    if (!groupId || !startTime || !endTime) {
+      return res.status(400).send({ message: 'Invalid request parameters' });
+    }
+    try {
+      const lessons = await Lesson.findAll({
+        where: {
+          [Op.and]: [
+            { groupId },
+            ,
+            {
+              [Op.and]: [
+                {
+                  startTime: {
+                    [Op.lt]: endTime,
+                  },
+                },
+                {
+                  endTime: {
+                    [Op.gt]: startTime,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      });
+      return res.send(lessons);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).send(error);
+    }
+  },
+
   async addNew(req, res) {
     const newLesson = req.body;
     try {
