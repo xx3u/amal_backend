@@ -6,10 +6,6 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: true,
     }),
-      await queryInterface.addColumn('Users', 'email', {
-        type: Sequelize.STRING,
-        allowNull: true,
-      }),
       await queryInterface.addColumn('Users', 'password', {
         type: Sequelize.STRING,
         allowNull: true,
