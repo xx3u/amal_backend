@@ -1,5 +1,7 @@
+const { Op } = require('sequelize');
 const Teacher = require('../models').Teacher;
 const Subject = require('../models').Subject;
+const Group = require('../models').Group;
 
 module.exports = {
   async getAll(req, res) {
@@ -70,5 +72,43 @@ module.exports = {
       }
     }
     next();
+  },
+
+  async getTeachersLessons(req, res) {
+    const teacherId = req.params.id;
+    try {
+      const teacher = await Teacher.findByPk(teacherId);
+      if (!teacher) return res.status(404).send({ error: 'Teacher with this id was not found' });
+
+      const { startTime, endTime } = req.query;
+      if (!startTime || !endTime) {
+        return res.status(400).send({ error: 'Invalid request parameters' });
+      }
+      const lessons = await teacher.getLessons({
+        where: {
+          [Op.and]: [
+            {
+              startTime: {
+                [Op.lt]: endTime,
+              },
+            },
+            {
+              endTime: {
+                [Op.gt]: startTime,
+              },
+            },
+          ],
+        },
+
+        include: [
+          { model: Subject, attributes: ['subjectName'] },
+          { model: Group, attributes: ['groupName'] },
+        ],
+      });
+      return res.send(lessons);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send(error);
+    }
   },
 };
