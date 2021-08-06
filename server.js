@@ -9,6 +9,7 @@ const teacherRoutes = require('./src/routes/TeacherRoutes');
 const lessonRoutes = require('./src/routes/LessonRoutes');
 const userRoutes = require('./src/routes/UserRoutes');
 const { PORT } = require('./src/config/config');
+require('./src/middleware/passport');
 
 const app = express();
 
