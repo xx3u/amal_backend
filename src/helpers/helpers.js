@@ -23,7 +23,7 @@ const getHashedPassword = async (password) => {
   const SALT_WORK_FACTOR = 10;
 
   const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  const hashedPassword = await bcrypt.hash(password.toString(), salt);
 
   return hashedPassword;
 };
