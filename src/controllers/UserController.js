@@ -35,7 +35,7 @@ module.exports = {
 
       const jwtToken = jwt.sign({ id: userWithUsername.id, email: userWithUsername.email }, process.env.JWT_KEY);
 
-      return res.status(200).send('Successfully signed in');
+      return res.status(200).send(jwtToken);
     } catch (error) {
       res.status(400).send(error);
     }
