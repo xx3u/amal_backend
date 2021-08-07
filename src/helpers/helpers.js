@@ -29,8 +29,6 @@ const getHashedPassword = async (password) => {
   return hashedPassword;
 };
 
-module.exports = getPaymentStatus;
-module.exports = getHashedPassword;
 const checkLessonsTime = async (lessonModel, { teacherId, groupId, endTime, startTime }) => {
   const lessons = await lessonModel.findAll({
     where: {
@@ -58,4 +56,4 @@ const checkLessonsTime = async (lessonModel, { teacherId, groupId, endTime, star
   return !!lessons.length;
 };
 
-module.exports = { getPaymentStatus, checkLessonsTime };
+module.exports = { getPaymentStatus, getHashedPassword, checkLessonsTime };
