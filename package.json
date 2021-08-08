@@ -5,15 +5,14 @@
     "dev": "nodemon server.js",
     "lint": "eslint --ext .js",
     "lint-all": "eslint --fix --ext .js,.jsx .",
-    "migrate":"sequelize-cli db:migrate",
-    "migrate:undo":"sequelize-cli db:migrate:undo",
-    "migrate:undo:all":"sequelize-cli db:migrate:undo:all",
-    "seed":"sequelize-cli db:seed:all",
-    "seed:undo":"sequelize-cli db:seed:undo:all"
+    "migrate": "sequelize-cli db:migrate",
+    "migrate:undo": "sequelize-cli db:migrate:undo",
+    "migrate:undo:all": "sequelize-cli db:migrate:undo:all",
+    "seed": "sequelize-cli db:seed:all",
+    "seed:undo": "sequelize-cli db:seed:undo:all"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "joi": "^17.4.1",
     "pg": "^8.6.0",
