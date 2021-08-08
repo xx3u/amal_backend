@@ -1,5 +1,5 @@
 const User = require('../models').User;
-const getHashedPassword = require('../helpers/helpers');
+const { getHashedPassword } = require('../helpers/helpers');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -12,7 +12,7 @@ module.exports = {
         return res.status(500).send('User with this username already exists');
       }
       const hashedPassword = await getHashedPassword(password);
-      const newUser = await new User({ username, password: hashedPassword });
+      const newUser = await User.create({ username, password: hashedPassword });
       await newUser.save();
       return res.status(200).send(newUser);
     } catch (error) {
