@@ -3,6 +3,8 @@ const Group = require('../models').Group;
 const Student = require('../models').Student;
 const Subject = require('../models').Subject;
 const Teacher = require('../models').Teacher;
+const Lesson = require('../models').Lesson;
+const { getDatePeriod, checkLessonsTime } = require('../helpers/helpers');
 
 module.exports = {
   async getAll(req, res) {
@@ -115,6 +117,86 @@ module.exports = {
         ],
       });
       return res.send(lessons);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send(error);
+    }
+  },
+  async createGroupLessons(req, res) {
+    const groupId = req.params.id;
+    try {
+      const group = await Group.findByPk(groupId);
+      if (!group) return res.status(404).send({ error: 'Group with this id was not found' });
+
+      let { startTime, endTime, createStartTime, createEndTime } = req.body;
+      if (!startTime || !endTime || !createStartTime || !createEndTime)
+        return res.status(400).send({ error: 'Invalid request parameters' });
+
+      endTime = new Date(new Date(endTime).setHours(23));
+
+      const lessons = await group.getLessons({
+        where: {
+          [Op.and]: [
+            {
+              startTime: {
+                [Op.lt]: endTime,
+              },
+            },
+            {
+              endTime: {
+                [Op.gt]: startTime,
+              },
+            },
+          ],
+        },
+      });
+
+      const range = getDatePeriod(new Date(createStartTime), new Date(createEndTime));
+
+      let newLessons = [];
+      range.forEach((dd) => {
+        lessons.forEach(async(lesson) => {
+          if (dd.getDay() === lesson.startTime.getDay()) {
+            const newStartTime = new Date(dd.setHours(lesson.startTime.getHours()));
+            const newEndTime = new Date(dd.setHours(lesson.endTime.getHours()));
+            const newLesson = {
+              startTime: newStartTime,
+              endTime: newEndTime,
+              groupId: lesson.groupId,
+              subjectId: lesson.subjectId,
+              teacherId: lesson.teacherId,
+            };
+            newLessons.push(newLesson);
+            // const isTimeUnavailable = await checkLessonsTime(Lesson, newLesson);
+            // if (!isTimeUnavailable) {
+            //   newLessons.push(newLesson);
+            // }
+          }
+        });
+      });
+
+      await Lesson.beforeBulkCreate(async(newLessons, options) => {
+        // console.log('newLessons', newLessons, 'options', options);
+        newLessons.forEach(async(lesson) => {
+          console.log('lesson', lesson);
+          const isTimeUnavailable = await checkLessonsTime(Lesson, lesson);
+          console.log('isTimeUnavailable', isTimeUnavailable);
+          if (isTimeUnavailable) {
+            newLessons = newLessons.filter((item) => item !== lesson);
+          }
+        });
+        console.log('newLessons', newLessons);
+        return newLessons;
+      });
+
+      Lesson.bulkCreate(newLessons, {
+        returning: true,
+      })
+        .then((createdLessons) => {
+          res.send(createdLessons);
+        })
+        .catch((err) => res.status(500).send(err));
+
     } catch (error) {
       console.log(error);
       return res.status(500).send(error);
