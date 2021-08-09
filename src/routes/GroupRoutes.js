@@ -9,4 +9,5 @@ router.get('/:id/lessons', GroupController.getGroupsLessons);
 router.put('/:id', GroupController.updateOne);
 router.delete('/:id', GroupController.deleteById);
 router.put('/:id/add-students', GroupController.addStudents);
+router.post('/:id/lessons/add', GroupController.createGroupLessons);
 module.exports = router;
