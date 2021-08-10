@@ -4,7 +4,7 @@ const Student = require('../models').Student;
 const Subject = require('../models').Subject;
 const Teacher = require('../models').Teacher;
 const Lesson = require('../models').Lesson;
-const { getDatePeriod, checkLessonsTime } = require('../helpers/helpers');
+const { getDatePeriod } = require('../helpers/helpers');
 
 module.exports = {
   async getAll(req, res) {
@@ -202,9 +202,6 @@ module.exports = {
 
       Lesson.bulkCreate(insertBulk(), {
         returning: true,
-        // individualHooks: true,
-        // updateOnDuplicate: ['teacherId', 'groupId', 'endTime', 'startTime'],
-        // updateOnDuplicate: true,
       })
         .then((createdLessons) => {
           res.send(createdLessons);
