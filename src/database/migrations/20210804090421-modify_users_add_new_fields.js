@@ -2,18 +2,36 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('Users', 'username', {
-      type: Sequelize.STRING,
-      allowNull: false,
-    }),
-      await queryInterface.addColumn('Users', 'password', {
-        type: Sequelize.STRING,
-        allowNull: false,
-      });
+    return queryInterface.sequelize.transaction((t) => {
+      return Promise.all([
+        queryInterface.addColumn(
+          'Users',
+          'username',
+          {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
+          { transaction: t }
+        ),
+        queryInterface.addColumn(
+          'Users',
+          'password',
+          {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
+          { transaction: t }
+        ),
+      ]);
+    });
   },
 
   down: async (queryInterface) => {
-    await queryInterface.removeColumn('Users', 'username');
-    await queryInterface.removeColumn('Users', 'password');
+    return queryInterface.sequelize.transaction((t) => {
+      return Promise.all([
+        queryInterface.removeColumn('Users', 'username', { transaction: t }),
+        queryInterface.removeColumn('Users', 'password', { transaction: t }),
+      ]);
+    });
   },
 };
