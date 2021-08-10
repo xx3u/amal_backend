@@ -153,50 +153,63 @@ module.exports = {
 
       const range = getDatePeriod(new Date(createStartTime), new Date(createEndTime));
 
-      let newLessons = [];
-      range.forEach((dd) => {
-        lessons.forEach(async(lesson) => {
-          if (dd.getDay() === lesson.startTime.getDay()) {
-            const newStartTime = new Date(dd.setHours(lesson.startTime.getHours()));
-            const newEndTime = new Date(dd.setHours(lesson.endTime.getHours()));
-            const newLesson = {
-              startTime: newStartTime,
-              endTime: newEndTime,
-              groupId: lesson.groupId,
-              subjectId: lesson.subjectId,
-              teacherId: lesson.teacherId,
-            };
-            newLessons.push(newLesson);
-            // const isTimeUnavailable = await checkLessonsTime(Lesson, newLesson);
-            // if (!isTimeUnavailable) {
-            //   newLessons.push(newLesson);
-            // }
-          }
-        });
+      const existedLesson = await Lesson.findOne({
+        where: {
+          [Op.and]: [
+            {
+              groupId,
+            },
+            {
+              [Op.and]: [
+                {
+                  startTime: {
+                    [Op.lt]: createEndTime,
+                  },
+                },
+                {
+                  endTime: {
+                    [Op.gt]: createStartTime,
+                  },
+                },
+              ],
+            },
+          ],
+        },
       });
 
-      await Lesson.beforeBulkCreate(async(newLessons, options) => {
-        // console.log('newLessons', newLessons, 'options', options);
-        newLessons.forEach(async(lesson) => {
-          console.log('lesson', lesson);
-          const isTimeUnavailable = await checkLessonsTime(Lesson, lesson);
-          console.log('isTimeUnavailable', isTimeUnavailable);
-          if (isTimeUnavailable) {
-            newLessons = newLessons.filter((item) => item !== lesson);
-          }
+      if (existedLesson) return res.status(400).send({ error: 'Lessons already exist for this period' });
+
+      const insertBulk = () => {
+        let newLessons = [];
+        range.forEach((dd) => {
+          lessons.forEach((lesson) => {
+            if (dd.getDay() === lesson.startTime.getDay()) {
+              const newStartTime = new Date(dd.setHours(lesson.startTime.getHours()));
+              const newEndTime = new Date(dd.setHours(lesson.endTime.getHours()));
+              const newLesson = {
+                startTime: newStartTime,
+                endTime: newEndTime,
+                groupId: lesson.groupId,
+                subjectId: lesson.subjectId,
+                teacherId: lesson.teacherId,
+              };
+              newLessons.push(newLesson);
+            }
+          });
         });
-        console.log('newLessons', newLessons);
         return newLessons;
-      });
+      }
 
-      Lesson.bulkCreate(newLessons, {
+      Lesson.bulkCreate(insertBulk(), {
         returning: true,
+        // individualHooks: true,
+        // updateOnDuplicate: ['teacherId', 'groupId', 'endTime', 'startTime'],
+        // updateOnDuplicate: true,
       })
         .then((createdLessons) => {
           res.send(createdLessons);
         })
         .catch((err) => res.status(500).send(err));
-
     } catch (error) {
       console.log(error);
       return res.status(500).send(error);
