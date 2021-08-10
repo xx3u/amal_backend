@@ -22,5 +22,9 @@ const LessonSchema = Joi.object({
   teacherId: Joi.number().required(),
   subjectId: Joi.number().required(),
 });
+const UserSchema = Joi.object({
+  username: Joi.string().required(),
+  password: Joi.string().required().min(8),
+});
 
-module.exports = { StudentSchema, LessonSchema };
+module.exports = { StudentSchema, LessonSchema, UserSchema };
