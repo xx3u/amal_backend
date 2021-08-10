@@ -25,12 +25,12 @@ module.exports = {
 
       const userWithUsername = await User.findOne({ where: { username } });
       if (!userWithUsername) {
-        return res.status(400).send({ error: 'Email or password does not match' });
+        return res.status(400).send({ error: 'username or password does not match' });
       }
 
       const vaildPassword = await bcrypt.compare(password, userWithUsername.password);
       if (!vaildPassword) {
-        return res.status(400).send({ error: 'Email or password does not match' });
+        return res.status(400).send({ error: 'username or password does not match' });
       }
 
       const jwtToken = jwt.sign({ id: userWithUsername.id, email: userWithUsername.email }, process.env.JWT_KEY);
