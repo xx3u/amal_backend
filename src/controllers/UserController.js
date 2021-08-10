@@ -28,8 +28,8 @@ module.exports = {
         return res.status(400).send({ error: 'username or password does not match' });
       }
 
-      const vaildPassword = await bcrypt.compare(password, userWithUsername.password);
-      if (!vaildPassword) {
+      const isVaildPassword = await bcrypt.compare(password, userWithUsername.password);
+      if (!isVaildPassword) {
         return res.status(400).send({ error: 'username or password does not match' });
       }
 
