@@ -21,20 +21,17 @@ module.exports = {
     try {
       const { username, password } = req.body;
 
-      const userWithUsername = await User.findOne({ where: { username } });
-      if (!userWithUsername) {
+      const user = await User.findOne({ where: { username } });
+      if (!user) {
         return res.status(400).send({ error: 'username or password does not match' });
       }
 
-      const isVaildPassword = await bcrypt.compare(password, userWithUsername.password);
+      const isVaildPassword = await bcrypt.compare(password, user.password);
       if (!isVaildPassword) {
         return res.status(400).send({ error: 'username or password does not match' });
       }
 
-      const jwtToken = jwt.sign(
-        { id: userWithUsername.id, username: userWithUsername.username },
-        process.env.JWT_SECRET_KEY
-      );
+      const jwtToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET_KEY);
 
       return res.status(200).send(jwtToken);
     } catch (error) {
