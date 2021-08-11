@@ -20,3 +20,6 @@ passport.use(
     }
   )
 );
+
+const passAuth = passport.authenticate('jwt', { session: false });
+module.exports = passAuth;
