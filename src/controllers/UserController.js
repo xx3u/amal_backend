@@ -31,7 +31,7 @@ module.exports = {
         return res.status(400).send({ error: 'username or password does not match' });
       }
 
-      const jwtToken = jwt.sign({ id: userWithUsername.id, email: userWithUsername.email }, process.env.JWT_KEY);
+      const jwtToken = jwt.sign({ id: userWithUsername.id, email: userWithUsername.email }, process.env.JWT_SECRET_KEY);
 
       return res.status(200).send(jwtToken);
     } catch (error) {
