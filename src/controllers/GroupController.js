@@ -151,7 +151,7 @@ module.exports = {
         },
       });
 
-      const range = getDatePeriod(new Date(createStartTime), new Date(createEndTime));
+      const range = getDatePeriod(createStartTime, createEndTime);
 
       const existedLesson = await Lesson.findOne({
         where: {
@@ -200,13 +200,10 @@ module.exports = {
         return newLessons;
       }
 
-      Lesson.bulkCreate(insertBulk(), {
+      const createdLessons = await Lesson.bulkCreate(insertBulk(), {
         returning: true,
-      })
-        .then((createdLessons) => {
-          res.send(createdLessons);
-        })
-        .catch((err) => res.status(500).send(err));
+      });
+      return res.send(createdLessons);
     } catch (error) {
       console.log(error);
       return res.status(500).send(error);
