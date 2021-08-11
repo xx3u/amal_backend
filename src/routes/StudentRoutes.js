@@ -1,18 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const StudentController = require('../controllers/StudentController');
+const passAuth = require('../middleware/passport');
 const validationMiddleware = require('../middleware/validationMiddleware');
 const { StudentSchema } = require('../schemas/schemas');
-const passport = require('passport');
 
-router.get(
-  '/',
-  passport.authenticate('jwt', { session: false }),
-  StudentController.getByGroupId,
-  StudentController.getAll
-);
-router.post('/', validationMiddleware(StudentSchema), StudentController.addNew);
-router.get('/:id', StudentController.getById);
-router.put('/:id', StudentController.updateOne);
+router.get('/', passAuth, StudentController.getByGroupId, StudentController.getAll);
+router.post('/', passAuth, validationMiddleware(StudentSchema), StudentController.addNew);
+router.get('/:id', passAuth, StudentController.getById);
+router.put('/:id', passAuth, StudentController.updateOne);
 
 module.exports = router;
