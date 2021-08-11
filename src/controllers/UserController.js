@@ -5,12 +5,12 @@ const bcrypt = require('bcrypt');
 module.exports = {
   async register(req, res) {
     try {
-      const { username, password } = req.body;
+      const { username, password, role } = req.body;
       const alreadyExistsUser = await User.findOne({ where: { username } });
       if (alreadyExistsUser) {
         return res.status(400).send({ error: 'User with this username already exists' });
       }
-      const newUser = await User.create({ username, password });
+      const newUser = await User.create({ username, password, role });
       await newUser.save();
       return res.status(200).send(newUser);
     } catch (error) {
