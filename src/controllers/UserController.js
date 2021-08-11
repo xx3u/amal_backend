@@ -1,5 +1,5 @@
 const User = require('../models').User;
-const { getHashedPassword } = require('../helpers/helpers');
+const { getHashedPassword } = require('../helpers');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
