@@ -200,10 +200,8 @@ module.exports = {
         return newLessons;
       }
 
-      const createdLessons = await Lesson.bulkCreate(insertBulk(), {
-        returning: true,
-      });
-      return res.send(createdLessons);
+      await Lesson.bulkCreate(insertBulk());
+      return res.send({ message: ' Lessons created successfully' });
     } catch (error) {
       console.log(error);
       return res.status(500).send(error);
