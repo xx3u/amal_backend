@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-const { getPaymentStatus } = require('../helpers/helpers');
+const { getPaymentStatus } = require('../helpers');
 
 module.exports = (sequelize, DataTypes) => {
   class Payment extends Model {
