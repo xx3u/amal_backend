@@ -1,5 +1,5 @@
 'use strict';
-const bcrypt = require('bcrypt');
+const { getHashedPassword } = require('../helpers');
 
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
@@ -22,9 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
-        async set(value) {
-          const hash = bcrypt.hashSync(value, 10);
-          this.setDataValue('password', hash);
+        set(value) {
+          this.setDataValue('password', getHashedPassword(value));
         },
       },
     },
