@@ -17,7 +17,7 @@ services:
       - DB_USERNAME=postgres
       - DB_NAME=postgres
       - DB_PASSWORD=1234
-      - JWT_KEY=9U^t9Apv
+      - JWT_SECRET_KEY=@=xc6j2F4-9^#_2VNG4fLwU:qshTFt8F
 
   backend-db:
     image: postgres:alpine
