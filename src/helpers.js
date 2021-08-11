@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
 
 const addOneMonth = (date) => {
@@ -18,15 +17,6 @@ const getPaymentStatus = (paymentDate) => {
   }
 
   return currentDate < dateLimit;
-};
-
-const getHashedPassword = async (password) => {
-  const SALT_WORK_FACTOR = 10;
-
-  const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
-  const hashedPassword = await bcrypt.hash(password.toString(), salt);
-
-  return hashedPassword;
 };
 
 const checkLessonsTime = async (lessonModel, { teacherId, groupId, endTime, startTime }) => {
@@ -56,4 +46,4 @@ const checkLessonsTime = async (lessonModel, { teacherId, groupId, endTime, star
   return !!lessons.length;
 };
 
-module.exports = { getPaymentStatus, getHashedPassword, checkLessonsTime };
+module.exports = { getPaymentStatus, checkLessonsTime };
