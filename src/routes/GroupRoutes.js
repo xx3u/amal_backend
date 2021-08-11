@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const GroupController = require('../controllers/GroupController');
-const passAuth = require('../middleware/passport');
+const auth = require('../middleware/passport');
 
-router.get('/', passAuth, GroupController.getAll);
-router.post('/', passAuth, GroupController.addNew);
-router.get('/:id', passAuth, GroupController.getById);
-router.get('/:id/lessons', passAuth, GroupController.getGroupsLessons);
-router.put('/:id', passAuth, GroupController.updateOne);
-router.delete('/:id', passAuth, GroupController.deleteById);
-router.put('/:id/add-students', passAuth, GroupController.addStudents);
+router.get('/', auth, GroupController.getAll);
+router.post('/', auth, GroupController.addNew);
+router.get('/:id', auth, GroupController.getById);
+router.get('/:id/lessons', auth, GroupController.getGroupsLessons);
+router.put('/:id', auth, GroupController.updateOne);
+router.delete('/:id', auth, GroupController.deleteById);
+router.put('/:id/add-students', auth, GroupController.addStudents);
 module.exports = router;
