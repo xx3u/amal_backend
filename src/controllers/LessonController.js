@@ -4,8 +4,8 @@ module.exports = {
   async addNew(req, res) {
     const newLesson = req.body;
     try {
-      const isTimeAvailable = await checkLessonsTime(Lesson, newLesson);
-      if (isTimeAvailable) return res.status(400).send({ message: 'Selected time is not available' });
+      const isTimeBusy = await checkLessonsTime(Lesson, newLesson);
+      if (isTimeBusy) return res.status(400).send({ message: 'Selected time is busy' });
 
       const createdLesson = await Lesson.create(newLesson);
       return res.send(createdLesson);
