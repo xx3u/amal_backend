@@ -48,7 +48,7 @@ const checkLessonsTime = async (lessonModel, { teacherId, groupId, endTime, star
 
 const getDatePeriod = (start, end) => {
   let arr = [];
-  for(arr, dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)){
+  for (arr, dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)) {
     arr.push(new Date(dt));
   }
   return arr;

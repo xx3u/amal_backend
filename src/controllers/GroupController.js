@@ -184,8 +184,8 @@ module.exports = {
         range.forEach((dd) => {
           lessons.forEach((lesson) => {
             if (dd.getDay() === lesson.startTime.getDay()) {
-              const newStartTime = new Date(dd.setHours(lesson.startTime.getHours()));
-              const newEndTime = new Date(dd.setHours(lesson.endTime.getHours()));
+              const newStartTime = new Date(dd.setHours(lesson.startTime.getHours(), lesson.startTime.getMinutes()));
+              const newEndTime = new Date(dd.setHours(lesson.endTime.getHours(), lesson.endTime.getMinutes()));
               const newLesson = {
                 startTime: newStartTime,
                 endTime: newEndTime,
@@ -198,7 +198,7 @@ module.exports = {
           });
         });
         return newLessons;
-      }
+      };
 
       await Lesson.bulkCreate(insertBulk());
       return res.send({ message: ' Lessons created successfully' });
