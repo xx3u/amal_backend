@@ -185,7 +185,7 @@ module.exports = {
           lessons.forEach((lesson) => {
             if (dd.getDay() === lesson.startTime.getDay()) {
               const newStartTime = new Date(dd.setHours(lesson.startTime.getHours(), lesson.startTime.getMinutes()));
-              const newEndTime = new Date(dd.setHours(lesson.startTime.getHours(), lesson.startTime.getMinutes()));
+              const newEndTime = new Date(dd.setHours(lesson.endTime.getHours(), lesson.endTime.getMinutes()));
               const newLesson = {
                 startTime: newStartTime,
                 endTime: newEndTime,
