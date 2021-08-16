@@ -4,7 +4,7 @@ const Student = require('../models').Student;
 const Subject = require('../models').Subject;
 const Teacher = require('../models').Teacher;
 const Lesson = require('../models').Lesson;
-const { getDatePeriod } = require('../helpers/helpers');
+const { getDatePeriod } = require('../helpers');
 
 module.exports = {
   async getAll(req, res) {
