@@ -3,6 +3,8 @@ const Group = require('../models').Group;
 const Student = require('../models').Student;
 const Subject = require('../models').Subject;
 const Teacher = require('../models').Teacher;
+const Lesson = require('../models').Lesson;
+const { getDatePeriod } = require('../helpers/helpers');
 
 module.exports = {
   async getAll(req, res) {
@@ -115,6 +117,91 @@ module.exports = {
         ],
       });
       return res.send(lessons);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send(error);
+    }
+  },
+  async createGroupLessons(req, res) {
+    const groupId = req.params.id;
+    try {
+      const group = await Group.findByPk(groupId);
+      if (!group) return res.status(404).send({ error: 'Group with this id was not found' });
+
+      let { startTime, endTime, createStartTime, createEndTime } = req.body;
+      if (!startTime || !endTime || !createStartTime || !createEndTime)
+        return res.status(400).send({ error: 'Invalid request parameters' });
+
+      endTime = new Date(new Date(endTime).setHours(23));
+
+      const lessons = await group.getLessons({
+        where: {
+          [Op.and]: [
+            {
+              startTime: {
+                [Op.lt]: endTime,
+              },
+            },
+            {
+              endTime: {
+                [Op.gt]: startTime,
+              },
+            },
+          ],
+        },
+      });
+
+      const range = getDatePeriod(createStartTime, createEndTime);
+
+      const existedLesson = await Lesson.findOne({
+        where: {
+          [Op.and]: [
+            {
+              groupId,
+            },
+            {
+              [Op.and]: [
+                {
+                  startTime: {
+                    [Op.lt]: createEndTime,
+                  },
+                },
+                {
+                  endTime: {
+                    [Op.gt]: createStartTime,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      });
+
+      if (existedLesson) return res.status(400).send({ error: 'Lessons already exist for this period' });
+
+      const insertBulk = () => {
+        let newLessons = [];
+        range.forEach((dd) => {
+          lessons.forEach((lesson) => {
+            if (dd.getDay() === lesson.startTime.getDay()) {
+              const newStartTime = new Date(dd.setHours(lesson.startTime.getHours(), lesson.startTime.getMinutes()));
+              const newEndTime = new Date(dd.setHours(lesson.endTime.getHours(), lesson.endTime.getMinutes()));
+              const newLesson = {
+                startTime: newStartTime,
+                endTime: newEndTime,
+                groupId: lesson.groupId,
+                subjectId: lesson.subjectId,
+                teacherId: lesson.teacherId,
+              };
+              newLessons.push(newLesson);
+            }
+          });
+        });
+        return newLessons;
+      };
+
+      await Lesson.bulkCreate(insertBulk());
+      return res.send({ message: ' Lessons created successfully' });
     } catch (error) {
       console.log(error);
       return res.status(500).send(error);

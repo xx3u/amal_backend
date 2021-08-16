@@ -34,10 +34,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      stream: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
+
       address: {
         type: Sequelize.STRING,
       },
@@ -47,6 +44,7 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
       },
+      status: { allowNull: false, type: Sequelize.ENUM('Активный', 'В резерве', 'Отчисленный', 'В ожидании') },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -58,6 +56,11 @@ module.exports = {
     });
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable('Students');
+    return queryInterface.sequelize.transaction((t) => {
+      return Promise.all([
+        queryInterface.dropTable('Students', { transaction: t }),
+        queryInterface.dropAllEnums({ transaction: t }),
+      ]);
+    });
   },
 };
