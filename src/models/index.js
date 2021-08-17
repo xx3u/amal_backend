@@ -8,7 +8,14 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/database_config');
 const db = {};
 
-const sequelize = new Sequelize(config.DATABASE_URL);
+const sequelize = new Sequelize(config.DATABASE_URL, {
+  dialectOptions: {
+    ssl: {
+      // require: true,
+      rejectUnauthorized: false
+    }
+  }
+});
 
 fs.readdirSync(__dirname)
   .filter((file) => {
