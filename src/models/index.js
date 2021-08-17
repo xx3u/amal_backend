@@ -4,18 +4,19 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/database_config');
+const config = require(__dirname + '/../config');
 const db = {};
 
-const sequelize = new Sequelize(config.DATABASE_URL, {
-  dialectOptions: {
-    ssl: {
-      // require: true,
-      rejectUnauthorized: false
+let sequelize;
+if (config.NODE_ENV === 'production') {
+  sequelize = new Sequelize(config.DATABASE_URL, {
+    dialectOptions: {
+      ssl: { rejectUnauthorized: false }
     }
-  }
-});
+  });
+} else {
+  sequelize = new Sequelize(config.DATABASE_URL);
+}
 
 fs.readdirSync(__dirname)
   .filter((file) => {
