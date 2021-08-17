@@ -213,9 +213,30 @@ module.exports = {
       const group = await Group.findByPk(groupId);
       if (!group) return res.status(404).send({ error: 'Group with this id was not found' });
 
-      const { startTime, oldTeacherId, newTeacherId } = req.query;
+      const { startTime, oldTeacherId, newTeacherId } = req.body;
       if (!startTime || !oldTeacherId || !newTeacherId)
         return res.status(400).send({ error: 'Invalid request parameters' });
+
+      const oldTeachersLessons = await group.getLessons({
+        where: {
+          [Op.and]: [{ startTime: { [Op.gte]: startTime } }, { teacherId: oldTeacherId }],
+        },
+      });
+
+      const newTeachersLessons = await Lesson.findAll({
+        where: {
+          [Op.and]: [{ startTime: { [Op.gte]: startTime } }, { teacherId: newTeacherId }],
+        },
+      });
+      const slotsOfNewTeachersLessons = newTeachersLessons.map((lesson) => {
+        return lesson.startTime.toISOString();
+      });
+
+      const teacherIsBusy = oldTeachersLessons.some((oldLesson) => {
+        return slotsOfNewTeachersLessons.includes(oldLesson.startTime.toISOString());
+      });
+
+      if (teacherIsBusy) return res.status(400).send({ error: 'Selected teacher is busy in selected range date' });
 
       await Lesson.update(
         { teacherId: newTeacherId },
