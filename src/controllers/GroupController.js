@@ -207,4 +207,27 @@ module.exports = {
       return res.status(500).send(error);
     }
   },
+  async updateTeacherInLessons(req, res) {
+    const groupId = req.params.id;
+    try {
+      const group = await Group.findByPk(groupId);
+      if (!group) return res.status(404).send({ error: 'Group with this id was not found' });
+
+      const { startTime, oldTeacherId, newTeacherId } = req.query;
+      if (!startTime || !oldTeacherId || !newTeacherId)
+        return res.status(400).send({ error: 'Invalid request parameters' });
+
+      await Lesson.update(
+        { teacherId: newTeacherId },
+        {
+          where: {
+            [Op.and]: [{ groupId: groupId }, { teacherId: oldTeacherId }, { startTime: { [Op.gte]: startTime } }],
+          },
+        }
+      );
+      return res.sendStatus(200);
+    } catch (e) {
+      return res.status(500).send(error);
+    }
+  },
 };
