@@ -13,3 +13,5 @@ docker-compose run backend npx sequelize-cli db:seed:all
 ```
 docker-compose up
 ```
+
+# Heroku
