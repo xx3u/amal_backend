@@ -12,11 +12,7 @@ services:
       - "8080:8080"
     environment:
       - PORT=8080
-      - DB_HOST=backend-db
-      - DB_PORT=5432
-      - DB_USERNAME=postgres
-      - DB_NAME=postgres
-      - DB_PASSWORD=1234
+      - DATABASE_URL=postgres://postgres@backend-db/postgres
 
   backend-db:
     image: postgres:alpine
