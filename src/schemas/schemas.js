@@ -10,7 +10,7 @@ const StudentSchema = Joi.object({
   parentsContacts: Joi.any().required(),
   streamId: Joi.number().required(),
   groupId: Joi.number().allow(null, ''),
-  adress: Joi.string().allow(null, ''),
+  address: Joi.string().allow(null, ''),
   telephone: Joi.string().allow(null, ''),
   email: Joi.string().email().allow(null, ''),
   status: Joi.string().valid('Активный', 'В резерве', 'Отчисленный', 'В ожидании').required(),

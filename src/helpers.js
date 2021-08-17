@@ -52,4 +52,12 @@ const getHashedPassword = (value) => {
   return hash;
 };
 
-module.exports = { getPaymentStatus, checkLessonsTime, getHashedPassword };
+const getDatePeriod = (start, end) => {
+  let arr = [];
+  for (arr, dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)) {
+    arr.push(new Date(dt));
+  }
+  return arr;
+};
+
+module.exports = { getPaymentStatus, checkLessonsTime, getHashedPassword, getDatePeriod };
