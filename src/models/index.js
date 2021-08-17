@@ -9,7 +9,7 @@ const db = {};
 
 let sequelize;
 if (config.NODE_ENV === 'production') {
-  sequelize = new Sequelize(config.DATABASE_URL, {
+  sequelize = new Sequelize(config.DATABASE_URL + '?sslmode=require', {
     ssl: true,
     dialectOptions: {
       ssl: { require: true } //rejectUnauthorized: false
