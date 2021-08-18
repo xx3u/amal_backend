@@ -1,17 +1,27 @@
 const User = require('../models').User;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Teacher = require('../models').Teacher;
 
 module.exports = {
   async register(req, res) {
     try {
-      const { username, password, role } = req.body;
+      const { username, password, role, teacherId } = req.body;
       const alreadyExistsUser = await User.findOne({ where: { username } });
       if (alreadyExistsUser) {
         return res.status(400).send({ error: 'User with this username already exists' });
       }
+      if (role === 'teacher' && !teacherId) {
+        return res.status(400).send({ error: 'Teacher id is not found' });
+      }
       const newUser = await User.create({ username, password, role });
-      await newUser.save();
+      if (teacherId) {
+        const teacher = await Teacher.findByPk(teacherId);
+        if (!teacher) {
+          return res.status(400).send({ error: 'Teacher by id is not found' });
+        }
+        newUser.setTeacher(teacher);
+      }
       return res.status(200).send(newUser);
     } catch (error) {
       res.status(500).send(error);
