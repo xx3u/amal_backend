@@ -12,7 +12,10 @@ if (config.NODE_ENV === 'production') {
   sequelize = new Sequelize(config.DATABASE_URL, {
     ssl: true,
     dialectOptions: {
-      ssl: { require: true } //rejectUnauthorized: false
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
     }
   });
 } else {
