@@ -12,7 +12,7 @@ module.exports = {
       }
       const newUser = await User.create({ username, password });
       await newUser.save();
-      return res.status(200).send(newUser);
+      return res.status(200).send('Successfully registered');
     } catch (error) {
       res.status(500).send(error);
     }
