@@ -22,7 +22,7 @@ module.exports = {
         }
         newUser.setTeacher(teacher);
       }
-      return res.status(200).send(newUser);
+      return res.status(200).send('Successfully registered');
     } catch (error) {
       res.status(500).send(error);
     }
