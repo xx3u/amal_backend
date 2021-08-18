@@ -26,6 +26,7 @@ const RegisterSchema = Joi.object({
   username: Joi.string().required(),
   password: Joi.string().required().min(8),
   role: Joi.string().valid('admin', 'teacher', 'student').required(),
+  teacherId: Joi.number().allow(null, ''),
 });
 const LoginSchema = Joi.object({
   username: Joi.string().required(),
