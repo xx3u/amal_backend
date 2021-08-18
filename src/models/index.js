@@ -10,13 +10,10 @@ const db = {};
 let sequelize;
 if (config.NODE_ENV === 'production') {
   sequelize = new Sequelize(config.DATABASE_URL, {
-    ssl: {
-      rejectUnauthorized: false
+    ssl: true,
+    dialectOptions: {
+      ssl: { require: true } //rejectUnauthorized: false
     }
-    // ssl: true,
-    // dialectOptions: {
-    //   ssl: { require: true } //rejectUnauthorized: false
-    // }
   });
 } else {
   sequelize = new Sequelize(config.DATABASE_URL);
