@@ -41,7 +41,9 @@ module.exports = {
         return res.status(400).send({ error: 'username or password does not match' });
       }
 
-      const jwtToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET_KEY);
+      const jwtToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET_KEY, {
+        expiresIn: '30m',
+      });
 
       const userWithToken = {
         username: user.username,
