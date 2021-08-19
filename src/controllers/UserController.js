@@ -12,7 +12,7 @@ module.exports = {
         return res.status(400).send({ error: 'User with this username already exists' });
       }
       if (role === 'teacher' && !teacherId) {
-        return res.status(400).send({ error: 'Teacher id is not found' });
+        return res.status(400).send({ error: 'Teacher is not selected' });
       }
       const newUser = await User.create({ username, password, role });
       if (teacherId) {
