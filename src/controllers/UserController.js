@@ -14,6 +14,9 @@ module.exports = {
       if (role === 'teacher' && !teacherId) {
         return res.status(400).send({ error: 'Teacher is not selected' });
       }
+      if (role === 'admin' && teacherId) {
+        return res.status(400).send({ error: 'Teacher should not have been provided' });
+      }
       const newUser = await User.create({ username, password, role });
       if (teacherId) {
         const teacher = await Teacher.findByPk(teacherId);
