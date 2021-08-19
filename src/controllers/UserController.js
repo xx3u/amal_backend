@@ -51,6 +51,7 @@ module.exports = {
       const userWithToken = {
         username: user.username,
         token: jwtToken,
+        role: user.role,
       };
 
       return res.status(200).send(userWithToken);
