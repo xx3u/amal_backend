@@ -22,6 +22,15 @@ module.exports = {
           },
           { transaction: t }
         ),
+        queryInterface.addColumn(
+          'Users',
+          'role',
+          {
+            type: Sequelize.ENUM('admin', 'teacher', 'student'),
+            allowNull: false,
+          },
+          { transaction: t }
+        ),
       ]);
     });
   },
@@ -31,6 +40,8 @@ module.exports = {
       return Promise.all([
         queryInterface.removeColumn('Users', 'username', { transaction: t }),
         queryInterface.removeColumn('Users', 'password', { transaction: t }),
+        queryInterface.removeColumn('Users', 'role', { transaction: t }),
+        queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Users_role"', { transaction: t }),
       ]);
     });
   },
