@@ -1,4 +1,6 @@
 'use strict';
+const { getHashedPassword } = require('../helpers');
+
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -12,7 +14,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init(
-    {},
+    {
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        set(value) {
+          this.setDataValue('password', getHashedPassword(value));
+        },
+      },
+    },
     {
       sequelize,
       modelName: 'User',

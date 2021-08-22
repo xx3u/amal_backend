@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const PaymentController = require('../controllers/PaymentController');
+const auth = require('../middleware/passport');
 
-router.get('/', PaymentController.getByStudentId, PaymentController.getAll);
-router.post('/', PaymentController.addNew);
-router.get('/:id', PaymentController.getById);
-router.put('/:id', PaymentController.updateOne);
+router.get('/', auth, PaymentController.getByStudentId, PaymentController.getAll);
+router.post('/', auth, PaymentController.addNew);
+router.get('/:id', auth, PaymentController.getById);
+router.put('/:id', auth, PaymentController.updateOne);
 module.exports = router;

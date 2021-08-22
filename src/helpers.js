@@ -1,4 +1,5 @@
 const { Op } = require('sequelize');
+const bcrypt = require('bcrypt');
 
 const addOneMonth = (date) => {
   date.setMonth(date.getMonth() + 1);
@@ -46,6 +47,11 @@ const checkLessonsTime = async (lessonModel, { teacherId, groupId, endTime, star
   return !!lessons.length;
 };
 
+const getHashedPassword = (value) => {
+  const hash = bcrypt.hashSync(value, 10);
+  return hash;
+};
+
 const getDatePeriod = (start, end) => {
   let arr = [];
   for (arr, dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)) {
@@ -54,4 +60,4 @@ const getDatePeriod = (start, end) => {
   return arr;
 };
 
-module.exports = { getPaymentStatus, checkLessonsTime, getDatePeriod };
+module.exports = { getPaymentStatus, checkLessonsTime, getHashedPassword, getDatePeriod };
