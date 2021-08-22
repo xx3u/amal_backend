@@ -1,5 +1,5 @@
 const Lesson = require('../models').Lesson;
-const { checkLessonsTime } = require('../helpers/helpers');
+const { checkLessonsTime } = require('../helpers');
 module.exports = {
   async addNew(req, res) {
     const newLesson = req.body;
