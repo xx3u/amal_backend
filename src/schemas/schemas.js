@@ -10,7 +10,7 @@ const StudentSchema = Joi.object({
   parentsContacts: Joi.any().required(),
   streamId: Joi.number().required(),
   groupId: Joi.number().allow(null, ''),
-  adress: Joi.string().allow(null, ''),
+  address: Joi.string().allow(null, ''),
   telephone: Joi.string().allow(null, ''),
   email: Joi.string().email().allow(null, ''),
   status: Joi.string().valid('Активный', 'В резерве', 'Отчисленный', 'В ожидании').required(),
@@ -22,5 +22,13 @@ const LessonSchema = Joi.object({
   teacherId: Joi.number().required(),
   subjectId: Joi.number().required(),
 });
+const RegisterSchema = Joi.object({
+  username: Joi.string().required(),
+  password: Joi.string().required().min(8),
+});
+const LoginSchema = Joi.object({
+  username: Joi.string().required(),
+  password: Joi.string().required(),
+});
 
-module.exports = { StudentSchema, LessonSchema };
+module.exports = { StudentSchema, LessonSchema, RegisterSchema, LoginSchema };

@@ -13,3 +13,6 @@ docker-compose run backend npx sequelize-cli db:seed:all
 ```
 docker-compose up
 ```
+
+# Heroku
+https://amal-backend.herokuapp.com/ deployed to Heroku

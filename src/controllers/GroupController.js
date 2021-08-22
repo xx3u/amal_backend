@@ -4,7 +4,7 @@ const Student = require('../models').Student;
 const Subject = require('../models').Subject;
 const Teacher = require('../models').Teacher;
 const Lesson = require('../models').Lesson;
-const { getDatePeriod } = require('../helpers/helpers');
+const { getDatePeriod } = require('../helpers');
 
 module.exports = {
   async getAll(req, res) {
@@ -184,8 +184,8 @@ module.exports = {
         range.forEach((dd) => {
           lessons.forEach((lesson) => {
             if (dd.getDay() === lesson.startTime.getDay()) {
-              const newStartTime = new Date(dd.setHours(lesson.startTime.getHours()));
-              const newEndTime = new Date(dd.setHours(lesson.endTime.getHours()));
+              const newStartTime = new Date(dd.setHours(lesson.startTime.getHours(), lesson.startTime.getMinutes()));
+              const newEndTime = new Date(dd.setHours(lesson.endTime.getHours(), lesson.endTime.getMinutes()));
               const newLesson = {
                 startTime: newStartTime,
                 endTime: newEndTime,
@@ -198,12 +198,56 @@ module.exports = {
           });
         });
         return newLessons;
-      }
+      };
 
       await Lesson.bulkCreate(insertBulk());
       return res.send({ message: ' Lessons created successfully' });
     } catch (error) {
       console.log(error);
+      return res.status(500).send(error);
+    }
+  },
+  async updateTeacherInLessons(req, res) {
+    const groupId = req.params.id;
+    try {
+      const group = await Group.findByPk(groupId);
+      if (!group) return res.status(404).send({ error: 'Group with this id was not found' });
+
+      const { startTime, oldTeacherId, newTeacherId } = req.body;
+      if (!startTime || !oldTeacherId || !newTeacherId)
+        return res.status(400).send({ error: 'Invalid request parameters' });
+
+      const oldTeachersLessons = await group.getLessons({
+        where: {
+          [Op.and]: [{ startTime: { [Op.gte]: startTime } }, { teacherId: oldTeacherId }],
+        },
+      });
+
+      const newTeachersLessons = await Lesson.findAll({
+        where: {
+          [Op.and]: [{ startTime: { [Op.gte]: startTime } }, { teacherId: newTeacherId }],
+        },
+      });
+      const slotsOfNewTeachersLessons = newTeachersLessons.map((lesson) => {
+        return lesson.startTime.toISOString();
+      });
+
+      const teacherIsBusy = oldTeachersLessons.some((oldLesson) => {
+        return slotsOfNewTeachersLessons.includes(oldLesson.startTime.toISOString());
+      });
+
+      if (teacherIsBusy) return res.status(400).send({ error: 'Selected teacher is busy in selected range date' });
+
+      await Lesson.update(
+        { teacherId: newTeacherId },
+        {
+          where: {
+            [Op.and]: [{ groupId: groupId }, { teacherId: oldTeacherId }, { startTime: { [Op.gte]: startTime } }],
+          },
+        }
+      );
+      return res.sendStatus(200);
+    } catch (e) {
       return res.status(500).send(error);
     }
   },
