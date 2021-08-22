@@ -10,7 +10,7 @@
     "migrate:undo:all": "sequelize-cli db:migrate:undo:all",
     "seed": "sequelize-cli db:seed:all",
     "seed:undo": "sequelize-cli db:seed:undo:all",
-    "build": "npm run migrate"
+    "build": "npm run migrate:undo:all && npm run seed:undo && npm run migrate"
   },
   "dependencies": {
     "@babel/register": "^7.15.3",
