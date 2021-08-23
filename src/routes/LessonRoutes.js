@@ -7,5 +7,6 @@ const auth = require('../middleware/passport');
 
 router.post('/', auth, validationMiddleware(LessonSchema), LessonController.addNew);
 router.delete('/:id', auth, LessonController.deleteById);
+router.post('/:id/add-student', LessonController.addAttendance);
 
 module.exports = router;
