@@ -34,7 +34,10 @@ module.exports = {
     try {
       const { username, password } = req.body;
 
-      const user = await User.findOne({ where: { username } });
+      const user = await User.findOne({
+        where: { username },
+        include: { model: Teacher, attributes: ['id', 'firstName', 'lastName'] },
+      });
       if (!user) {
         return res.status(400).send({ error: 'username or password does not match' });
       }
@@ -52,6 +55,7 @@ module.exports = {
         username: user.username,
         token: jwtToken,
         role: user.role,
+        teacher: user.Teacher,
       };
 
       return res.status(200).send(userWithToken);
