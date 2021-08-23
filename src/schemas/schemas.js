@@ -30,9 +30,5 @@ const LoginSchema = Joi.object({
   username: Joi.string().required(),
   password: Joi.string().required(),
 });
-const AttendanceSchema = Joi.object({
-  studentId: Joi.number().required(),
-  lessonId: Joi.number().required(),
-});
 
-module.exports = { StudentSchema, LessonSchema, RegisterSchema, LoginSchema, AttendanceSchema };
+module.exports = { StudentSchema, LessonSchema, RegisterSchema, LoginSchema };
