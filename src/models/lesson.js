@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'RESTRICT',
         onUpdate: 'CASCADE',
       });
-      this.belongsToMany(models.Student, { through: 'Attendance' }, { timestamps: false });
+      this.belongsToMany(models.Student, { through: 'Attendance', timestamps: false });
     }
   }
   Lesson.init(
