@@ -31,4 +31,17 @@ module.exports = {
       return res.status(500).send(error);
     }
   },
+  async deleteById(req, res) {
+    try {
+      const attendance = await Attendance.findByPk(req.params.id);
+      if (attendance) {
+        await attendance.destroy();
+        return res.send('Attendance record was deleted');
+      } else {
+        return res.status(404).send({ error: 'Attendance with this id was not found' });
+      }
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
 };
