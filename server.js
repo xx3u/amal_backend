@@ -8,6 +8,7 @@ const subjectRoutes = require('./src/routes/SubjectRoutes');
 const teacherRoutes = require('./src/routes/TeacherRoutes');
 const lessonRoutes = require('./src/routes/LessonRoutes');
 const userRoutes = require('./src/routes/UserRoutes');
+const attendanceRoutes = require('./src/routes/AttendanceRoutes');
 const { PORT } = require('./src/config');
 require('./src/middleware/passport');
 
@@ -24,6 +25,7 @@ app.use('/subjects', subjectRoutes);
 app.use('/teachers', teacherRoutes);
 app.use('/lessons', lessonRoutes);
 app.use('/users', userRoutes);
+app.use('/attendance', attendanceRoutes);
 
 app.get('*', (req, res) =>
   res.status(200).send({
