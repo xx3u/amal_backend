@@ -40,7 +40,7 @@ module.exports = {
       if (!student) return res.status(404).send({ error: 'Student with this id was not found' });
 
       const alreadyAddedStudent = await lesson.hasStudent(student);
-      if (alreadyAddedStudent) return res.status(404).send({ error: 'This student was already added to this lesson' });
+      if (alreadyAddedStudent) return res.status(404).send({ error: 'This student was already added to the lesson' });
 
       await lesson.addStudent(student);
       return res.status(200).send('Student successfully added to the lesson');
@@ -60,7 +60,7 @@ module.exports = {
       if (!student) return res.status(404).send({ error: 'Student with this id was not found' });
 
       const alreadyAddedStudent = await lesson.hasStudent(student);
-      if (!alreadyAddedStudent) return res.status(404).send({ error: 'There is no student in this lesson' });
+      if (!alreadyAddedStudent) return res.status(404).send({ error: 'There is no such student in this lesson' });
 
       await lesson.removeStudent(student);
       return res.status(200).send('The student successfully deleted from the lesson');
