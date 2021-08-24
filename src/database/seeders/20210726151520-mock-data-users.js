@@ -7,28 +7,28 @@ module.exports = {
       'Users',
       [
         {
-          id: 1,
+          id: 1001,
           username: 'teacher1',
           password: getHashedPassword('teacher1'),
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          id: 2,
+          id: 1002,
           username: 'teacher2',
           password: getHashedPassword('teacher2'),
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          id: 3,
+          id: 1003,
           username: 'admin1',
           password: getHashedPassword('admin1'),
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          id: 4,
+          id: 1004,
           username: 'student1',
           password: getHashedPassword('student1'),
           createdAt: new Date(),

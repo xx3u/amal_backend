@@ -4,13 +4,13 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return await queryInterface.bulkInsert('Streams', [
       {
-        id: 1,
+        id: 1001,
         name: 'NIS',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        id: 2,
+        id: 1002,
         name: 'SAT',
         createdAt: new Date(),
         updatedAt: new Date(),
