@@ -8,6 +8,6 @@ const { StudentSchema } = require('../schemas/schemas');
 router.get('/', auth, StudentController.getByGroupId, StudentController.getAll);
 router.post('/', auth, validationMiddleware(StudentSchema), StudentController.addNew);
 router.get('/:id', auth, StudentController.getById);
-router.put('/:id', auth, StudentController.updateOne);
+router.put('/:id', auth, validationMiddleware(StudentSchema), StudentController.updateOne);
 
 module.exports = router;

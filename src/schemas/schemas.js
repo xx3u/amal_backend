@@ -30,5 +30,8 @@ const LoginSchema = Joi.object({
   username: Joi.string().required(),
   password: Joi.string().required(),
 });
+const PaymentSchema = Joi.object({
+  amount: Joi.number().required(),
+});
 
-module.exports = { StudentSchema, LessonSchema, RegisterSchema, LoginSchema };
+module.exports = { StudentSchema, LessonSchema, RegisterSchema, LoginSchema, PaymentSchema };
