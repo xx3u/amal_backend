@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Stream, { foreignKey: 'streamId' });
       this.hasMany(models.Payment, { foreignKey: 'studentId' });
       this.hasMany(models.Payment, { as: 'LastPayment', foreignKey: 'studentId' });
-      this.belongsToMany(models.Lesson, { through: 'Attendance', timestamps: false });
+      this.belongsToMany(models.Lesson, { through: 'Attendance', foreignKey: 'lessonId', timestamps: false });
     }
   }
   Student.init(

@@ -5,12 +5,12 @@ module.exports = {
     return queryInterface.createTable(
       'Attendance',
       {
-        LessonId: {
+        lessonId: {
           type: Sequelize.INTEGER,
           allowNull: false,
           primaryKey: true,
         },
-        StudentId: {
+        studentId: {
           type: Sequelize.INTEGER,
           allowNull: false,
           primaryKey: true,
