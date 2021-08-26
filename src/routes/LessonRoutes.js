@@ -4,10 +4,11 @@ const LessonController = require('../controllers/LessonController');
 const validationMiddleware = require('../middleware/validationMiddleware');
 const { LessonSchema } = require('../schemas/schemas');
 const auth = require('../middleware/passport');
+const accessByRole = require('../middleware/accessByRole');
 
-router.post('/', auth, validationMiddleware(LessonSchema), LessonController.addNew);
-router.delete('/:id', auth, LessonController.deleteById);
-router.post('/:id/add-student', auth, LessonController.addAttendance);
-router.delete('/:id/remove-student', auth, LessonController.removeAttendance);
+router.post('/', auth, accessByRole('admin'), validationMiddleware(LessonSchema), LessonController.addNew);
+router.delete('/:id', auth, accessByRole('admin'), LessonController.deleteById);
+router.post('/:id/add-student', auth, accessByRole('admin'), LessonController.addAttendance);
+router.delete('/:id/remove-student', auth, accessByRole('admin'), LessonController.removeAttendance);
 
 module.exports = router;

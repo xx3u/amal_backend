@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
           this.setDataValue('password', getHashedPassword(value));
         },
       },
+      role: {
+        type: DataTypes.ENUM('admin', 'teacher', 'student'),
+        allowNull: false,
+      },
     },
     {
       sequelize,
