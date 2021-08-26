@@ -1,4 +1,5 @@
 const Lesson = require('../models').Lesson;
+const Student = require('../models').Student;
 const { checkLessonsTime } = require('../helpers');
 module.exports = {
   async addNew(req, res) {
@@ -25,6 +26,46 @@ module.exports = {
       }
     } catch (error) {
       return res.status(400).send(error);
+    }
+  },
+
+  async addAttendance(req, res) {
+    const lessonId = req.params.id;
+    try {
+      const lesson = await Lesson.findByPk(lessonId);
+      if (!lesson) return res.status(404).send({ error: 'Lesson with this id was not found' });
+
+      const { studentId } = req.body;
+      const student = await Student.findByPk(studentId);
+      if (!student) return res.status(404).send({ error: 'Student with this id was not found' });
+
+      const alreadyAddedStudent = await lesson.hasStudent(student);
+      if (alreadyAddedStudent) return res.status(404).send({ error: 'This student was already added to the lesson' });
+
+      await lesson.addStudent(student);
+      return res.status(200).send('Student successfully added to the lesson');
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+  },
+
+  async removeAttendance(req, res) {
+    const lessonId = req.params.id;
+    try {
+      const lesson = await Lesson.findByPk(lessonId);
+      if (!lesson) return res.status(404).send({ error: 'Lesson with this id was not found' });
+
+      const { studentId } = req.body;
+      const student = await Student.findByPk(studentId);
+      if (!student) return res.status(404).send({ error: 'Student with this id was not found' });
+
+      const alreadyAddedStudent = await lesson.hasStudent(student);
+      if (!alreadyAddedStudent) return res.status(404).send({ error: 'There is no such student in this lesson' });
+
+      await lesson.removeStudent(student);
+      return res.status(200).send('The student successfully deleted from the lesson');
+    } catch (error) {
+      return res.status(500).send(error);  
     }
   },
 };
