@@ -33,7 +33,7 @@ const LoginSchema = Joi.object({
   password: Joi.string().required(),
 });
 const PaymentSchema = Joi.object({
-  studentId: Joi.number().required(),
+  studentId: Joi.alternatives().try(Joi.string(), Joi.number()).required(),
   date: Joi.date().required(),
   amount: Joi.number().required(),
   comment: Joi.string().allow(null, ''),
@@ -44,7 +44,6 @@ const TeacherSchema = Joi.object({
   language: Joi.string().required(),
   telephone: Joi.number().required(),
   email: Joi.string().email().allow(null, ''),
-  userId: Joi.number().required(),
 });
 const SubjectSchema = Joi.object({
   subjectName: Joi.string().required(),

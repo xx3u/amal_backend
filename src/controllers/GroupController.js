@@ -114,7 +114,7 @@ module.exports = {
         include: [
           { model: Subject, attributes: ['subjectName'] },
           { model: Teacher, attributes: ['firstName', 'lastName'] },
-          { model: Student, attributes: [ 'id', 'firstName', 'lastName' ], through: { attributes: [] } },
+          { model: Student, attributes: ['id', 'firstName', 'lastName'], through: { attributes: [] } },
         ],
       });
       return res.send(lessons);
