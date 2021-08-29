@@ -4,13 +4,13 @@ module.exports = {
   up: async (queryInterface) => {
     return await queryInterface.bulkInsert('Subjects', [
       {
-        id: 1,
+        id: 1001,
         subjectName: 'Math',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        id: 2,
+        id: 1002,
         subjectName: 'Physics',
         createdAt: new Date(),
         updatedAt: new Date(),
