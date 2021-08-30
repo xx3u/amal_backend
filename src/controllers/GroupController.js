@@ -26,7 +26,7 @@ module.exports = {
       const createdGroup = await Group.create(newGroup);
       return res.send(createdGroup);
     } catch (error) {
-      return res.status(500).send(error);
+      return res.status(500).send(error.errors[0].message);
     }
   },
   async getById(req, res) {
@@ -53,7 +53,7 @@ module.exports = {
         return res.status(404).send({ error: 'Group with this id was not found' });
       }
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send(error.errors[0].message);
     }
   },
   async deleteById(req, res) {
@@ -114,7 +114,7 @@ module.exports = {
         include: [
           { model: Subject, attributes: ['subjectName'] },
           { model: Teacher, attributes: ['firstName', 'lastName'] },
-          { model: Student, attributes: [ 'id', 'firstName', 'lastName' ], through: { attributes: [] } },
+          { model: Student, attributes: ['id', 'firstName', 'lastName'], through: { attributes: [] } },
         ],
       });
       return res.send(lessons);

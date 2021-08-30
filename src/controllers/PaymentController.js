@@ -61,7 +61,7 @@ module.exports = {
     const { studentId } = req.query;
     if (studentId) {
       try {
-        const payments = await Payment.findAll({ 
+        const payments = await Payment.findAll({
           where: { studentId },
           order: [['date', 'DESC']],
         });

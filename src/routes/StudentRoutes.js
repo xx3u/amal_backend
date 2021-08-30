@@ -9,6 +9,6 @@ const { StudentSchema } = require('../schemas/schemas');
 router.get('/', auth, accessByRole('admin'), StudentController.getByGroupId, StudentController.getAll);
 router.post('/', auth, accessByRole('admin'), validationMiddleware(StudentSchema), StudentController.addNew);
 router.get('/:id', auth, accessByRole('admin'), StudentController.getById);
-router.put('/:id', auth, accessByRole('admin'), StudentController.updateOne);
+router.put('/:id', auth, accessByRole('admin'), validationMiddleware(StudentSchema), StudentController.updateOne);
 
 module.exports = router;

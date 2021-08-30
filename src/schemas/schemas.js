@@ -32,5 +32,33 @@ const LoginSchema = Joi.object({
   username: Joi.string().required(),
   password: Joi.string().required(),
 });
+const PaymentSchema = Joi.object({
+  studentId: Joi.alternatives().try(Joi.string(), Joi.number()).required(),
+  date: Joi.date().required(),
+  amount: Joi.number().required(),
+  comment: Joi.string().allow(null, ''),
+});
+const TeacherSchema = Joi.object({
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  language: Joi.string().required(),
+  telephone: Joi.number().required(),
+  email: Joi.string().email().allow(null, ''),
+});
+const SubjectSchema = Joi.object({
+  subjectName: Joi.string().required(),
+});
+const StreamSchema = Joi.object({
+  name: Joi.string().required(),
+});
 
-module.exports = { StudentSchema, LessonSchema, RegisterSchema, LoginSchema };
+module.exports = {
+  StudentSchema,
+  LessonSchema,
+  RegisterSchema,
+  LoginSchema,
+  PaymentSchema,
+  TeacherSchema,
+  SubjectSchema,
+  StreamSchema,
+};

@@ -7,9 +7,7 @@ const { Op } = require('sequelize');
 module.exports = {
   async getAll(req, res) {
     try {
-      const reqQuery = req.query;
-
-   const searchConditions = Object.entries(req.query)
+      const searchConditions = Object.entries(req.query)
         .filter(([key, value]) => value)
         .map(([key, value]) => {
           return { [key]: { [Op.iLike]: `%${value}%` } };
@@ -32,7 +30,7 @@ module.exports = {
 
       return res.status(200).send(students);
     } catch (error) {
-      return res.status(500).send(error);
+      return res.status(500).send(error.errors[0].message);
     }
   },
   async getByGroupId(req, res, next) {
@@ -42,7 +40,7 @@ module.exports = {
         const students = await Student.findAll({ where: { groupId } });
         return res.status(200).send(students);
       } catch (error) {
-        return res.status(500).send(error);
+        return res.status(500).send(error.errors[0].message);
       }
     } else if (groupId === '') {
       const studentWoGroup = await Student.findAll({ where: { groupId: null } });

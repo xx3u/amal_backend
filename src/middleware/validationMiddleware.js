@@ -4,7 +4,7 @@ const validationMiddleware = (schema) => {
       await schema.validateAsync(req.body);
       next();
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send(err.details[0].message);
     }
   };
 };
