@@ -48,6 +48,9 @@ const TeacherSchema = Joi.object({
 const SubjectSchema = Joi.object({
   subjectName: Joi.string().required(),
 });
+const StreamSchema = Joi.object({
+  name: Joi.string().required(),
+});
 
 module.exports = {
   StudentSchema,
@@ -57,4 +60,5 @@ module.exports = {
   PaymentSchema,
   TeacherSchema,
   SubjectSchema,
+  StreamSchema,
 };
