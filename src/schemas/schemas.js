@@ -51,7 +51,9 @@ const SubjectSchema = Joi.object({
 const StreamSchema = Joi.object({
   name: Joi.string().required(),
 });
-
+const GroupSchema = Joi.object({
+  groupName: Joi.string().required(),
+})
 module.exports = {
   StudentSchema,
   LessonSchema,
@@ -61,4 +63,5 @@ module.exports = {
   TeacherSchema,
   SubjectSchema,
   StreamSchema,
+  GroupSchema,
 };

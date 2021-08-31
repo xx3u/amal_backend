@@ -15,7 +15,7 @@ module.exports = {
       const createdSubj = await Subject.create(newSubj);
       return res.send(createdSubj);
     } catch (error) {
-      return res.status(500).send(error);
+      return res.status(500).send(error.errors[0].message);
     }
   },
   async getById(req, res) {

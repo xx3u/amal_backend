@@ -60,4 +60,21 @@ const getDatePeriod = (start, end) => {
   return arr;
 };
 
-module.exports = { getPaymentStatus, checkLessonsTime, getHashedPassword, getDatePeriod };
+class ErrorHandler extends Error {
+  constructor(statusCode, message) {
+    super();
+    this.statusCode = statusCode;
+    this.message = message;
+  }
+}
+
+const handleError = (err, res) => {
+  const { statusCode, message } = err;
+  res.status(statusCode).json({
+    status: 'error',
+    statusCode,
+    message,
+  });
+};
+
+module.exports = { getPaymentStatus, checkLessonsTime, getHashedPassword, getDatePeriod, ErrorHandler, handleError };

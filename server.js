@@ -10,6 +10,7 @@ const lessonRoutes = require('./src/routes/LessonRoutes');
 const userRoutes = require('./src/routes/UserRoutes');
 const { PORT } = require('./src/config');
 require('./src/middleware/passport');
+const { errorHandler } = require('./src/helpers');
 
 const app = express();
 
@@ -30,6 +31,9 @@ app.get('*', (req, res) =>
     message: 'Hello World!',
   })
 );
+app.use((err, req, resp, next) => {
+  errorHandler(err, resp);
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running at port: ${PORT}`);
