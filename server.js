@@ -25,12 +25,12 @@ app.use('/teachers', teacherRoutes);
 app.use('/lessons', lessonRoutes);
 app.use('/users', userRoutes);
 
-app.get('*', (req, res) =>
-  res.status(200).send({
-    message: 'Hello World!',
-  })
+app.get('/', (req, res) =>
+  res.status(200).send('Hello World!')
 );
 
-app.listen(PORT, () => {
+const server = app.listen(PORT || 8000, () => {
   console.log(`Server is running at port: ${PORT}`);
 });
+
+module.exports = server;
