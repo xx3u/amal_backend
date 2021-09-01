@@ -7,6 +7,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:alpine
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
@@ -22,8 +28,4 @@ jobs:
       - run: npm test
 
 
-    services:
-      postgres:
-        image: postgres:alpine
-        env:
-          POSTGRES_HOST_AUTH_METHOD: trust
+
