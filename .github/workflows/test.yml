@@ -24,7 +24,8 @@ jobs:
         env: 
           DATABASE_URL: postgres://postgres@postgres/postgres
           JWT_SECRET_KEY: '@=xc6j2F4-9^#_2VNG4fLwU:qshTFt8F'
-          PORT: 8000
+          PORT: 8080
+          POSTGRES_HOST: postgres
       - run: npm test
 
 
