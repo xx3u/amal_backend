@@ -34,7 +34,7 @@ jobs:
           node-version: '16.x'
       - run: npm install
       - run: npm run migrate
-      - run: npm lint
+      - run: npm run lint
       - run: npm test
 
 
