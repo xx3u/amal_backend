@@ -12,6 +12,11 @@ jobs:
         image: postgres:alpine
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v2
@@ -25,7 +30,6 @@ jobs:
           DATABASE_URL: postgres://postgres@postgres/postgres
           JWT_SECRET_KEY: '@=xc6j2F4-9^#_2VNG4fLwU:qshTFt8F'
           PORT: 8080
-          POSTGRES_HOST: postgres
       - run: npm test
 
 
