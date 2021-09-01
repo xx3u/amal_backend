@@ -34,9 +34,7 @@ jobs:
           node-version: '16.x'
       - run: npm install
       - run: npm run migrate
-      # - run: npm docker-compose ps
-      # - run: npm run build --if-present
-
+      - run: npm lint
       - run: npm test
 
 
