@@ -11,7 +11,7 @@ const StudentSchema = Joi.object({
   streamId: Joi.number().required(),
   groupId: Joi.number().allow(null, ''),
   address: Joi.string().allow(null, ''),
-  telephone: Joi.string().allow(null, ''),
+  telephone: Joi.number().allow(null, ''),
   email: Joi.string().email().allow(null, ''),
   status: Joi.string().valid('Активный', 'В резерве', 'Отчисленный', 'В ожидании').required(),
 });
@@ -51,7 +51,9 @@ const SubjectSchema = Joi.object({
 const StreamSchema = Joi.object({
   name: Joi.string().required(),
 });
-
+const GroupSchema = Joi.object({
+  groupName: Joi.string().required(),
+});
 module.exports = {
   StudentSchema,
   LessonSchema,
@@ -61,4 +63,5 @@ module.exports = {
   TeacherSchema,
   SubjectSchema,
   StreamSchema,
+  GroupSchema,
 };
