@@ -22,7 +22,7 @@ jobs:
       - run: npm install
       - run: npm run build --if-present
         env: 
-          DATABASE_URL: postgres://postgres@postgres/postgres
+          DATABASE_URL: postgresql://postgres@postgres/postgres
           JWT_SECRET_KEY: '@=xc6j2F4-9^#_2VNG4fLwU:qshTFt8F'
           PORT: 8080
       - run: npm test
