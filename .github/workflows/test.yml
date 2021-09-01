@@ -19,6 +19,7 @@ jobs:
           --health-retries 5
 
     steps:
+      needs: postgres
       - uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v2
