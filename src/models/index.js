@@ -19,7 +19,7 @@ if (config.NODE_ENV === 'production') {
     }
   });
 } else {
-  sequelize = new Sequelize(config.DATABASE_URL);
+  sequelize = new Sequelize({ dialect: 'postgres' });
 }
 
 fs.readdirSync(__dirname)
