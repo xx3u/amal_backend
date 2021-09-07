@@ -44,6 +44,7 @@ const TeacherSchema = Joi.object({
   language: Joi.string().required(),
   telephone: Joi.number().required(),
   email: Joi.string().email().allow(null, ''),
+  subjectId: Joi.number().required(),
 });
 const SubjectSchema = Joi.object({
   subjectName: Joi.string().required(),
