@@ -1,6 +1,7 @@
-const accessByRole = (role) => {
+const accessByRole = (...role) => {
   return async (req, res, next) => {
-    if (req.user && req.user.role.toString() !== role) {
+    const userRole = req.user && req.user.role.toString();
+    if (!role.includes(userRole)) {
       return res.status(403).send('You do not have access to this page');
     }
     next();
