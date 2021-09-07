@@ -8,7 +8,7 @@ const accessByRole = require('../middleware/accessByRole');
 
 router.post('/', auth, accessByRole('admin'), validationMiddleware(LessonSchema), LessonController.addNew);
 router.delete('/:id', auth, accessByRole('admin'), LessonController.deleteById);
-router.post('/:id/add-student', auth, accessByRole('admin'), LessonController.addAttendance);
-router.delete('/:id/remove-student', auth, accessByRole('admin'), LessonController.removeAttendance);
+router.post('/:id/add-student', auth, accessByRole('teacher'), LessonController.addAttendance);
+router.delete('/:id/remove-student', auth, accessByRole('teacher'), LessonController.removeAttendance);
 
 module.exports = router;
