@@ -11,7 +11,7 @@
     "seed:undo": "sequelize-cli db:seed:undo:all",
     "build": "npm run migrate",
     "migrate:reset": "npm run migrate:undo:all && npm run migrate",
-    "test": "jest --watch --runInBand --detectOpenHandles"
+    "test": "jest --runInBand --detectOpenHandles"
   },
   "dependencies": {
     "@babel/register": "^7.15.3",
