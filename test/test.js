@@ -36,22 +36,22 @@ describe('GET /', () => {
       .expect(200)
   });
 
-  test('Should save student to db', async(done) => {
-    await request(app)
-      .post('/students').send({
-        firstName: 'test',
-        lastName: 'test',
-        grade: 5,
-        language: 'KZ',
-        parentsContacts: 'ok',
-        status: 'В ожидании',
-        stream: 1
-      })
-      .set('Authorization', `Bearer ${token}`)
+  // test('Should save student to db', async(done) => {
+  //   await request(app)
+  //     .post('/students').send({
+  //       firstName: 'test',
+  //       lastName: 'test',
+  //       grade: 5,
+  //       language: 'KZ',
+  //       parentsContacts: 'ok',
+  //       status: 'В ожидании',
+  //       stream: 1
+  //     })
+  //     .set('Authorization', `Bearer ${token}`)
 
-    const student = await Student.findOne({ firstName: 'test' });
-    console.log('student', student);
-    expect(student.firstName).toBeTruthy();
-    done();
-  })
+  //   const student = await Student.findOne({ firstName: 'test' });
+  //   console.log('student', student);
+  //   expect(student.firstName).toBeTruthy();
+  //   done();
+  // })
 });
