@@ -8,6 +8,8 @@ describe('Sample Test', () => {
   })
 })
 
+afterEach(() => app.close());
+
 describe('GET /', () => {
   let token;
   beforeAll((done) => {
