@@ -84,8 +84,9 @@ const RegisterSchema = Joi.object({
   }),
   role: Joi.string().valid('admin', 'teacher', 'student').required().messages({
     'string.base': `Неверный формат, role`,
-    'string.empty': `Роль не должно быть пустым`,
-    'any.required': `Роль не должно быть пустым`,
+    'string.empty': `Роль не должна быть пустой`,
+    'any.required': `Роль не должна быть пустой`,
+    'any.only': `Роль не должна быть пустой`,
   }),
   teacherId: Joi.number().allow(null, '').messages({
     'number.base': `Неверный формат, teacherId`,
