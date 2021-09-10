@@ -15,7 +15,7 @@ module.exports = {
         return res.status(400).send({ error: 'Учитель не выбран' });
       }
       if (role === 'admin' && teacherId) {
-        return res.status(400).send({ error: 'Не нужно данные учителя' });
+        return res.status(400).send({ error: 'Не нужны данные учителя' });
       }
       const newUser = await User.create({ username, password, role });
       if (teacherId) {
