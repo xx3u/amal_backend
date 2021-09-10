@@ -9,23 +9,23 @@ module.exports = {
       const { username, password, role, teacherId } = req.body;
       const alreadyExistsUser = await User.findOne({ where: { username } });
       if (alreadyExistsUser) {
-        return res.status(400).send({ error: 'User with this username already exists' });
+        return res.status(400).send({ error: 'Пользователь с таким логином уже существует' });
       }
       if (role === 'teacher' && !teacherId) {
-        return res.status(400).send({ error: 'Teacher is not selected' });
+        return res.status(400).send({ error: 'Учитель не выбран' });
       }
       if (role === 'admin' && teacherId) {
-        return res.status(400).send({ error: 'Teacher should not have been provided' });
+        return res.status(400).send({ error: 'Не нужны данные учителя' });
       }
       const newUser = await User.create({ username, password, role });
       if (teacherId) {
         const teacher = await Teacher.findByPk(teacherId);
         if (!teacher) {
-          return res.status(400).send({ error: 'Teacher by id is not found' });
+          return res.status(400).send({ error: 'Id учителя не найден' });
         }
         newUser.setTeacher(teacher);
       }
-      return res.status(200).send('Successfully registered');
+      return res.status(200).send('Успешно зарегистрирован');
     } catch (error) {
       res.status(500).send(error);
     }
@@ -39,12 +39,12 @@ module.exports = {
         include: { model: Teacher, attributes: ['id', 'firstName', 'lastName'] },
       });
       if (!user) {
-        return res.status(400).send({ error: 'username or password does not match' });
+        return res.status(400).send({ error: 'Неверно указан логин или пароль, попробуйте еще раз.' });
       }
 
       const isVaildPassword = await bcrypt.compare(password, user.password);
       if (!isVaildPassword) {
-        return res.status(400).send({ error: 'username or password does not match' });
+        return res.status(400).send({ error: 'Неверно указан логин или пароль, попробуйте еще раз.' });
       }
 
       const jwtToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET_KEY, {
