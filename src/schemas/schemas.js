@@ -82,7 +82,7 @@ const RegisterSchema = Joi.object({
     'string.min': `Пароль не должен быть меньше 8 символов`,
     'any.required': `Пароль  не должно быть пустым`,
   }),
-  role: Joi.string().valid('admin', 'teacher', 'student').required().messages({
+  role: Joi.string().valid('admin', 'teacher').required().messages({
     'string.base': `Неверный формат, role`,
     'string.empty': `Роль не должна быть пустой`,
     'any.required': `Роль не должна быть пустой`,
