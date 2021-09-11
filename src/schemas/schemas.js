@@ -76,12 +76,15 @@ const RegisterSchema = Joi.object({
     'string.empty': `Имя пользователя не должно быть пустым`,
     'any.required': `Имя пользователя не должно быть пустым`,
   }),
-  password: Joi.string().required().min(8).messages({
-    'string.base': `Неверный формат,password`,
-    'string.empty': `Пароль  не должно быть пустым`,
-    'string.min': `Пароль не должен быть меньше 8 символов`,
-    'any.required': `Пароль  не должно быть пустым`,
-  }),
+  password: Joi.string()
+    .required()
+    .pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)
+    .messages({
+      'string.base': `Неверный формат,password`,
+      'string.empty': `Пароль  не должно быть пустым`,
+      'string.pattern.base': `Пароль должен быть латиницей, минимум восемь символов, минимум одна буква, одна цифра и один специальный символ `,
+      'any.required': `Пароль не должен быть пустым`,
+    }),
   role: Joi.string().valid('admin', 'teacher').required().messages({
     'string.base': `Неверный формат, role`,
     'string.empty': `Роль не должна быть пустой`,
