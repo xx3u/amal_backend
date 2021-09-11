@@ -30,14 +30,6 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-        {
-          id: 1004,
-          username: 'student1',
-          password: getHashedPassword('student1'),
-          role: 'student',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
       ],
       {}
     );
