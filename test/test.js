@@ -1,12 +1,5 @@
 const request = require('supertest');
 const app = require('../server');
-const Student = require('../src/models').Student;
-
-describe('Sample Test', () => {
-  it('should test that true === true', () => {
-    expect(true).toBe(true)
-  })
-})
 
 afterEach(() => app.close());
 
@@ -16,8 +9,8 @@ describe('GET /', () => {
     request(app)
       .post('/login')
       .send({
-        username: 'admin',
-        password: 'qwerty123',
+        username: 'admin1',
+        password: 'admin1',
       })
       .end((err, response) => {
         token = response.body.token;
