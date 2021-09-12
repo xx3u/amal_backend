@@ -38,7 +38,7 @@ module.exports = {
       if (payment) {
         return res.status(200).send(payment);
       } else {
-        return res.status(404).send({ error: 'Payment with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id платежа' });
       }
     } catch (error) {
       return res.status(400).send(error);
@@ -51,7 +51,7 @@ module.exports = {
         const updatedPayment = await payment.update(req.body);
         return res.send(updatedPayment);
       } else {
-        return res.status(404).send({ error: 'Payment with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id платежа' });
       }
     } catch (error) {
       return res.status(400).send(error);
