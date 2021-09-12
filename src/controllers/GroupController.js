@@ -35,7 +35,7 @@ module.exports = {
       if (group) {
         return res.status(200).send(group);
       } else {
-        return res.status(404).send({ error: 'Group with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id группы' });
       }
     } catch (error) {
       return res.status(400).send(error);
@@ -50,7 +50,7 @@ module.exports = {
         });
         return res.send(updatedGroup);
       } else {
-        return res.status(404).send({ error: 'Group with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id группы' });
       }
     } catch (error) {
       return res.status(400).send(error.errors[0].message);
@@ -65,7 +65,7 @@ module.exports = {
         });
         return res.send('the group was deleted');
       } else {
-        return res.status(404).send({ error: 'Group with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id группы' });
       }
     } catch (error) {
       return res.status(400).send(error);
@@ -79,7 +79,7 @@ module.exports = {
         await Student.update({ groupId: group.id, status: 'Активный' }, { where: { id: studentIds } });
         return res.sendStatus(204);
       } else {
-        return res.status(404).send({ error: 'Group with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id группы' });
       }
     } catch (error) {
       console.log(error);
@@ -90,10 +90,10 @@ module.exports = {
     const groupId = req.params.id;
     try {
       const group = await Group.findByPk(groupId);
-      if (!group) return res.status(404).send({ error: 'Group with this id was not found' });
+      if (!group) return res.status(404).send({ error: 'Неверный id группы' });
 
       const { startTime, endTime } = req.query;
-      if (!startTime || !endTime) return res.status(400).send({ error: 'Invalid request parameters' });
+      if (!startTime || !endTime) return res.status(400).send({ error: 'Неверный параметр запроса' });
 
       const lessons = await group.getLessons({
         where: {
@@ -127,11 +127,11 @@ module.exports = {
     const groupId = req.params.id;
     try {
       const group = await Group.findByPk(groupId);
-      if (!group) return res.status(404).send({ error: 'Group with this id was not found' });
+      if (!group) return res.status(404).send({ error: 'Неверный id группы' });
 
       let { startTime, endTime, createStartTime, createEndTime } = req.body;
       if (!startTime || !endTime || !createStartTime || !createEndTime)
-        return res.status(400).send({ error: 'Invalid request parameters' });
+        return res.status(400).send({ error: 'Неверный параметр запроса' });
 
       endTime = new Date(new Date(endTime).setHours(23));
 
@@ -178,7 +178,7 @@ module.exports = {
         },
       });
 
-      if (existedLesson) return res.status(400).send({ error: 'Lessons already exist for this period' });
+      if (existedLesson) return res.status(400).send({ error: 'Уроки существуют в указанном периоде' });
 
       const insertBulk = () => {
         let newLessons = [];
@@ -202,7 +202,7 @@ module.exports = {
       };
 
       await Lesson.bulkCreate(insertBulk());
-      return res.send({ message: ' Lessons created successfully' });
+      return res.send({ message: 'Уроки успешно созданы' });
     } catch (error) {
       console.log(error);
       return res.status(500).send(error);
@@ -212,11 +212,11 @@ module.exports = {
     const groupId = req.params.id;
     try {
       const group = await Group.findByPk(groupId);
-      if (!group) return res.status(404).send({ error: 'Group with this id was not found' });
+      if (!group) return res.status(404).send({ error: 'Неверный id группы' });
 
       const { startTime, oldTeacherId, newTeacherId } = req.body;
       if (!startTime || !oldTeacherId || !newTeacherId)
-        return res.status(400).send({ error: 'Invalid request parameters' });
+        return res.status(400).send({ error: 'Неверный параметр запроса' });
 
       const oldTeachersLessons = await group.getLessons({
         where: {
@@ -237,7 +237,7 @@ module.exports = {
         return slotsOfNewTeachersLessons.includes(oldLesson.startTime.toISOString());
       });
 
-      if (teacherIsBusy) return res.status(400).send({ error: 'Selected teacher is busy in selected range date' });
+      if (teacherIsBusy) return res.status(400).send({ error: 'Выбранный учитель занят в указанный период' });
 
       await Lesson.update(
         { teacherId: newTeacherId },
