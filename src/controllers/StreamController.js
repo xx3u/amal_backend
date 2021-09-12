@@ -24,7 +24,7 @@ module.exports = {
       if (stream) {
         return res.status(200).send(stream);
       } else {
-        return res.status(404).send({ error: 'Stream with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id направления' });
       }
     } catch (error) {
       return res.status(400).send(error);
@@ -39,7 +39,7 @@ module.exports = {
         });
         return res.send(updatedStream);
       } else {
-        return res.status(404).send({ error: 'Stream with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id направления' });
       }
     } catch (error) {
       return res.status(400).send(error);
@@ -50,9 +50,9 @@ module.exports = {
       const stream = await Stream.findByPk(req.params.id);
       if (stream) {
         await stream.destroy();
-        return res.send('the stream was deleted');
+        return res.send('Направление удалено');
       } else {
-        return res.status(404).send({ error: 'Stream with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id направления' });
       }
     } catch (error) {
       console.log(error);
