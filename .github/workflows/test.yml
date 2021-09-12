@@ -12,8 +12,8 @@ jobs:
         image: postgres
         env:
           POSTGRES_DB: test
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
         ports:
           - 5432:5432
         options: >-
@@ -23,7 +23,7 @@ jobs:
           --health-retries 5
     env: 
       DATABASE_URL: postgres://postgres:postgres@0.0.0.0:5432/test
-      JWT_SECRET_KEY: '@=xc6j2F4-9^#_2VNG4fLwU:qshTFt8F'
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
       PORT: 8080
 
     steps:
@@ -36,6 +36,3 @@ jobs:
       - run: npm run migrate
       - run: npm run lint
       - run: npm test
-
-
-
