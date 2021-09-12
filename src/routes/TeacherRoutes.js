@@ -6,11 +6,19 @@ const auth = require('../middleware/passport');
 const validationMiddleware = require('../middleware/validationMiddleware');
 const { TeacherSchema } = require('../schemas/schemas');
 
+const joiOptions = { allowUnknown: true };
+
 router.get('/', auth, TeacherController.getBySubjectId, TeacherController.getAll);
 router.get('/:id', auth, TeacherController.getById);
 router.get('/:id/lessons', auth, TeacherController.getTeachersLessons);
 router.post('/', auth, accessByRole('admin'), validationMiddleware(TeacherSchema), TeacherController.addNew);
-router.put('/:id', auth, accessByRole('admin'), TeacherController.updateById);
+router.put(
+  '/:id',
+  auth,
+  accessByRole('admin'),
+  validationMiddleware(TeacherSchema, joiOptions),
+  TeacherController.updateById
+);
 router.delete('/:id', auth, accessByRole('admin'), TeacherController.deleteById);
 
 module.exports = router;
