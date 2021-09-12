@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Stream.init(
     {
-      name: DataTypes.STRING,
+      name: { type: DataTypes.STRING, unique: { msg: 'Имя направления должно быть уникальным' } },
     },
     {
       sequelize,
