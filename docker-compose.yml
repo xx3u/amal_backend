@@ -14,6 +14,7 @@ services:
       - PORT=8080
       - DATABASE_URL=postgres://postgres@backend-db/postgres
       - JWT_SECRET_KEY=@=xc6j2F4-9^#_2VNG4fLwU:qshTFt8F
+      - JWT_REFRESH_TOKEN=Z;BFhyaL>Nv9Yqn4.2wsJ9wEc.r;y^UA
 
   backend-db:
     image: postgres:alpine
