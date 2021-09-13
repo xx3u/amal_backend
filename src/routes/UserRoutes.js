@@ -8,5 +8,6 @@ const auth = require('../middleware/passport');
 
 router.post('/register', auth, accessByRole('admin'), validationMiddleware(RegisterSchema), UserController.register);
 router.post('/login', validationMiddleware(LoginSchema), UserController.login);
+router.post('/token', UserController.token);
 
 module.exports = router;
