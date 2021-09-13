@@ -77,7 +77,7 @@ module.exports = {
           where: { username },
         });
         const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET_KEY, {
-          expiresIn: '20s',
+          expiresIn: '15m',
         });
         const response = {
           token: token,
