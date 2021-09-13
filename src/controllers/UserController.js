@@ -49,7 +49,7 @@ module.exports = {
       }
 
       const jwtToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET_KEY, {
-        expiresIn: '20s',
+        expiresIn: '15m',
       });
       const refreshToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_REFRESH_TOKEN, {
         expiresIn: '7d',
