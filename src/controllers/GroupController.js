@@ -205,7 +205,7 @@ module.exports = {
       return res.send({ message: 'Уроки успешно созданы' });
     } catch (error) {
       console.log(error);
-      return res.status(500).send(error);
+      return res.status(500).send({ error: 'Внутренняя ошибка сервера' });
     }
   },
   async updateTeacherInLessons(req, res) {
