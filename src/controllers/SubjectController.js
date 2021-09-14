@@ -24,7 +24,7 @@ module.exports = {
       if (subject) {
         return res.status(200).send(subject);
       } else {
-        return res.status(404).send({ error: 'Subject with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id предмета' });
       }
     } catch (error) {
       return res.status(400).send(error);
@@ -39,7 +39,7 @@ module.exports = {
         });
         return res.send(updatedSubj);
       } else {
-        return res.status(404).send({ error: 'Subject with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id предмета' });
       }
     } catch (error) {
       return res.status(400).send(error);
@@ -50,9 +50,9 @@ module.exports = {
       const subject = await Subject.findByPk(req.params.id);
       if (subject) {
         await subject.destroy();
-        return res.send('the subject was deleted');
+        return res.send('Предмет удален');
       } else {
-        return res.status(404).send({ error: 'Subject with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id предмета' });
       }
     } catch (error) {
       return res.status(400).send(error);

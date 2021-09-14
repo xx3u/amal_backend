@@ -26,7 +26,7 @@ module.exports = {
       if (teacher) {
         return res.send(teacher);
       } else {
-        return res.status(404).send({ error: 'Teacher with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id учителя' });
       }
     } catch (error) {
       res.status(500).send(error);
@@ -39,7 +39,7 @@ module.exports = {
         const updatedTeacher = await teacher.update(req.body);
         return res.send(updatedTeacher);
       } else {
-        return res.status(404).send({ error: 'Teacher with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id учителя' });
       }
     } catch (error) {
       console.log('error: ', error);
@@ -51,9 +51,9 @@ module.exports = {
       const teacher = await Teacher.findByPk(req.params.id);
       if (teacher) {
         await teacher.destroy();
-        return res.send('The teacher was deleted');
+        return res.send('Учитель удален');
       } else {
-        return res.status(404).send({ error: 'Teacher with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id учителя' });
       }
     } catch (error) {
       res.status(400).send(error);
@@ -78,10 +78,10 @@ module.exports = {
     const teacherId = req.params.id;
     try {
       const teacher = await Teacher.findByPk(teacherId);
-      if (!teacher) return res.status(404).send({ error: 'Teacher with this id was not found' });
+      if (!teacher) return res.status(404).send({ error: 'Неверный id учителя' });
 
       const { startTime, endTime } = req.query;
-      if (!startTime || !endTime) return res.status(400).send({ error: 'Invalid request parameters' });
+      if (!startTime || !endTime) return res.status(400).send({ error: 'Неверный параметр запроса' });
 
       const lessons = await teacher.getLessons({
         where: {

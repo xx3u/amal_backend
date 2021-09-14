@@ -76,7 +76,7 @@ module.exports = {
       if (student) {
         return res.status(200).send(student);
       } else {
-        return res.status(404).send({ error: 'Student with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id студента' });
       }
     } catch (error) {
       return res.status(400).send(error);
@@ -100,7 +100,7 @@ module.exports = {
         });
         return res.send(postedStudent);
       } else {
-        return res.status(404).send({ error: 'Student with this id was not found' });
+        return res.status(404).send({ error: 'Неверный id студента' });
       }
     } catch (error) {
       return res.status(400).send(error);
