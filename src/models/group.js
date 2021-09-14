@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       groupName: {
         type: DataTypes.STRING(10),
         allowNull: false,
-        unique: true,
+        unique: { msg: 'Имя группы должно быть уникальным' },
       },
     },
     {
