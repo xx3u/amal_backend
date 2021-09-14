@@ -2,6 +2,7 @@ const User = require('../models').User;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Teacher = require('../models').Teacher;
+const tokenList = {};
 
 module.exports = {
   async register(req, res) {
@@ -48,18 +49,45 @@ module.exports = {
       }
 
       const jwtToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET_KEY, {
-        expiresIn: '60m',
+        expiresIn: '15m',
+      });
+      const refreshToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_REFRESH_TOKEN, {
+        expiresIn: '7d',
       });
 
-      const userWithToken = {
+      const response = {
         username: user.username,
         token: jwtToken,
+        refreshToken: refreshToken,
         role: user.role,
         teacher: user.Teacher,
       };
 
-      return res.status(200).send(userWithToken);
+      tokenList[refreshToken] = response;
+      return res.status(200).send(response);
     } catch (error) {
+      res.status(500).send(error);
+    }
+  },
+  async token(req, res) {
+    try {
+      const { username, refreshToken } = req.body;
+      if (refreshToken && refreshToken in tokenList) {
+        const user = await User.findOne({
+          where: { username },
+        });
+        const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET_KEY, {
+          expiresIn: '15m',
+        });
+        const response = {
+          token: token,
+        };
+        tokenList[refreshToken].token = token;
+        res.status(200).json(response);
+      } else {
+        res.status(404).send('Invalid request');
+      }
+    } catch {
       res.status(500).send(error);
     }
   },
