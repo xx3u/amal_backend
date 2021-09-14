@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       subjectName: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: { msg: 'Имя урока должно быть уникальным' },
+        unique: { msg: 'Имя предмета должно быть уникальным' },
       },
     },
     {
